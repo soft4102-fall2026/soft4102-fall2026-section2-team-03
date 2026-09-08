@@ -28,7 +28,6 @@ What does it tell us: It tells is that a centralized platform exists where stude
 Source: Uncertain
 What does it tell us: We assume as students we would expect date, time, location, organizer, description, category, participation certficate, if food is provided and if the topic is relavent to their interests.
 
-
-- Question 3: What features would make students more likely to use the platform regularly? (e.g., search, filters, notifications, RSVP, personalized recommendations) (Uncertain: Add a search & filter)
+-Question 3: What features would make students more likely to use the platform regularly? (e.g., search, filters, notifications, RSVP, personalized recommendations) (Uncertain: Add a search & filter)
 Investigation: For evidence we will use the Navigate360 app. On this app there is a small events section. This tells us that the events are only listed with a small description. We think students would like to search through and filter. Also a feature that can recommend and personalize the events based on interests. Adding on, the students would definitely like to see reminders or notifications as well as number of students interested or attending. Lastly, we see a previous events section, however we want pictures, participators or ratings and student comments.
 
