@@ -1,4 +1,4 @@
-Phase 1: EXPLORE
+<img width="468" height="320" alt="image" src="https://github.com/user-attachments/assets/b932fd00-a02d-44bb-91b4-865560855589" />Phase 1: EXPLORE
 
 Opportunity Snapshot
 
@@ -21,6 +21,14 @@ What features would make students more likely to use the platform regularly? (e.
 
 Phase 3: INVESTIGATE
 
+-Question 1: How do students and faculty currently discover university events, and what problems do they face with the current process? : Evidence/Source:https://udst.navigate.eab.com/app/#/my/host/calendar/events/list
+What does it tell us: It tells is that a centralized platform exists where students can discover events however its static/vaugue and unknown 
 
-- Question: What features would make students more likely to use the platform regularly? (e.g., search, filters, notifications, RSVP, personalized recommendations) (Uncertain: Add a search & filter)
+-Question 2: What information do students need to see when deciding whether to attend an event? Evidence: date, time, location, organizer, description, category, participation certficate, if food provided and if the topic is relavent to their intrersts
+Source: Uncertain
+What does it tell us: We assume as students we would expect date, time, location, organizer, description, category, participation certficate, if food is provided and if the topic is relavent to their interests.
+
+
+- Question 3: What features would make students more likely to use the platform regularly? (e.g., search, filters, notifications, RSVP, personalized recommendations) (Uncertain: Add a search & filter)
 Investigation: For evidence we will use the Navigate360 app. On this app there is a small events section. This tells us that the events are only listed with a small description. We think students would like to search through and filter. Also a feature that can recommend and personalize the events based on interests. Adding on, the students would definitely like to see reminders or notifications as well as number of students interested or attending. Lastly, we see a previous events section, however we want pictures, participators or ratings and student comments.
+
