@@ -1,4 +1,4 @@
-<img width="468" height="320" alt="image" src="https://github.com/user-attachments/assets/b932fd00-a02d-44bb-91b4-865560855589" />Phase 1: EXPLORE
+Phase 1: EXPLORE
 
 Opportunity Snapshot
 
