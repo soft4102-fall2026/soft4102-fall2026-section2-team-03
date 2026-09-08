@@ -36,7 +36,15 @@ Investigation: For evidence we will use the Navigate360 app. On this app there i
 
 Phase 4: LEARN
 
+What became clearer? It became cleaer to us that even with the platform on navigate360 we can still patch gaps and enhance what already exists.
+
+What did the evidence challenge or complicate? We initially wanted to build the platform from scratch but when we found out about its existance It challanged us by narrowing the scope to enhancing/patching instead of creating
+
+What remains uncertain? We still need to navigate how the marketing process will go and how to capture students interests in the platform
+
+Should we keep, refine, or reconsider the direction? We’ve refined our idea from creating the platofrm to enhancing the current existing platofrm it the direction will remain
 
 
 REFINED DIRECTION: After our initial investigation, we are now interested in analyzing the existing Navigate events section, gathering student feedback on what's missing and what they'd like to see, and exploring what additional features such as search, filters, personalization, notifications and social proof could be added to it, because a centralized platform already exists but appears too static and limited to actually solve the event discovery problem.
+
 
