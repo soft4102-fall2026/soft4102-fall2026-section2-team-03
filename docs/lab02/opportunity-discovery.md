@@ -36,3 +36,7 @@ Investigation: For evidence we will use the Navigate360 app. On this app there i
 
 Phase 4: LEARN
 
+
+
+REFINED DIRECTION: After our initial investigation, we are now interested in analyzing the existing Navigate events section, gathering student feedback on what's missing and what they'd like to see, and exploring what additional features such as search, filters, personalization, notifications and social proof could be added to it, because a centralized platform already exists but appears too static and limited to actually solve the event discovery problem.
+
