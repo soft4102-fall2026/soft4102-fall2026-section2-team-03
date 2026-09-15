@@ -1,19 +1,26 @@
 Lab 3
 
-WHO:
-  Users:
-    -Students 
-    -Faculty
-    -external organizations
-Customers: 
-    -The university (UDST): they will buy the product 
-Stakeholders:
-    -University administation
-    -IT department (they will control deployment and access for the application)
-    -Event organizers
+PHASE 1:
+  WHO:
+    Users:
+      -Students 
+      -Faculty
+      -external organizations
+  Customers: 
+      -The university (UDST): they will buy the product 
+  Stakeholders:
+      -University administation
+      -IT department (they will control deployment and access for the application)
+      -Event organizers
 
-
-
+PHASE 2:
+  WHAT:
+    Primary group: current university students
+    When and where: When they are looking for events to attend, happens the most during busy times.
+    Goals and needs: We are trying to improve the effort it takes to discover events, and avoid missing opportunities. The main achievement is creating a centralized place for students to find events
+    Current behaviour/ workaround: They get email of events that could get lost in their spam or may not be relevant to then, asking their classmates and friends or being informed by them about the events happening, they also get informed from multiple social media platforms.
+    Possible pain points: effort to find emails through the spam emails and some events that students are not interested in which could confuse them, risk of costing event mangers money when not enough people show up.
+  
 
 Phase 3
 EVIDENCE 1: REVIEW 
