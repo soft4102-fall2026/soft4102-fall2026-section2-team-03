@@ -34,16 +34,21 @@ Findings:
 •	Small section that is easy to miss
 
 EVIDENCE 2: ASK
+
 Question 1:
+
 Tell me about the last university event you found out about. How did you hear about it?
 
 Question 2:
+
 Think about the last time you considered attending a university event. What information did you look for before deciding?
 
 Question 3:
+
 Tell me about your experience the last time you used Navigate360 to look for a university event, if you have used it.
 
 Question 4:
+
 What do you normally do when you cannot find enough information about an event?
 
     
