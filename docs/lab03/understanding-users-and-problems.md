@@ -22,40 +22,38 @@ PHASE 2:
     Possible pain points: effort to find emails through the spam emails and some events that students are not interested in which could confuse them, risk of costing event mangers money when not enough people show up.
   
 
-Phase 3
-EVIDENCE 1: REVIEW 
-Source: The existing UDST Navigate360 events section.
-Findings:
-•	Very basic list of events
+Phase 3:
 
-•	It lacks advanced filtering options
 
-•	It lacks student ratings or opinions
-
-•	It lacks visual elements like event pictures
-
-•	It lacks attendance counts
-
-•	It lacks clear tags showing details such as whether food or participation certificates are provided
-
-•	Small section that is easy to miss
-
-EVIDENCE 2: ASK
-
-Question 1:
-
-Tell me about the last university event you found out about. How did you hear about it?
-
-Question 2:
-
-Think about the last time you considered attending a university event. What information did you look for before deciding?
-
-Question 3:
-
-Tell me about your experience the last time you used Navigate360 to look for a university event, if you have used it.
-
-Question 4:
-
-What do you normally do when you cannot find enough information about an event?
-
+  We will investigate UDST students who attend or look for university events to learn how students currently discover events, what information they need, and what difficulties they experience.
+  
+  
+  Methods
+  
+  
+  Method 1. Reviewing existing solutions 
+      eg. The existing Navigate360 events section, including the information provided and how events are displayed.
+  
+     
+  Method 2. Asking students by sending out a survey.
+     
+  
+  The survey will be asking about : 
+  
+  
+   1. Tell me about the last university event you attended or considered attending. How did you find out about it?
+  
+     
+   2. What information did you look for before deciding to attend?
+  
+     
+   3. What did you do when you could not find enough information?
+  
+     
+   4. Have you ever missed an event because you found out about it too late? What happened?
+  
     
+   5. Have you used Navigate360 to look for events? What was your experience?
+  
+  
+      
