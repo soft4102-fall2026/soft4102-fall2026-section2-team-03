@@ -22,7 +22,7 @@ PHASE 2:
     Possible pain points: effort to find emails through the spam emails and some events that students are not interested in which could confuse them, risk of costing event mangers money when not enough people show up.
   
 
-Phase 3:
+PHASE 3:
 
 
   We will investigate UDST students who attend or look for university events to learn how students currently discover events, what information they need, and what difficulties they experience.
@@ -55,5 +55,51 @@ Phase 3:
     
    5. Have you used Navigate360 to look for events? What was your experience?
   
+
+
+PHASE 4:
+
+EVIDENCE 1: REVIEW 
+
+
+  Source: The existing UDST Navigate360 events section.
+  Findings:
+  •	Very basic list of events
   
+  •	It lacks advanced filtering options
+  
+  •	It lacks student ratings or opinions
+  
+  •	It lacks visual elements like event pictures
+  
+  •	It lacks attendance counts
+  
+  •	It lacks clear tags showing details such as whether food or participation certificates are provided
+  
+  •	Small section that is easy to miss
+  
+
+EVIDENCE 2: ASK IN A SURVEY
+
+  Question 1 Feedback:
+  
+  Outlook was the most common source, followed by friends/faculty and social media. Navigate360 and posters/flyers were not reported as       sources.
+  
+  
+  Question 2 Feedback:
+  Students mainly look for the date, time, type of event, activities, location, purpose, and benefits. When information is missing,           students commonly check social media, search online, or ask friends/others.
+  
+  
+  Question 3 Feedback:
+  Many students were unaware of or had never used Navigate360 to find events. Some had seen it but did not use it, while only a few had       used it and found it easy to find events.
+  
+  Question 4 Feedback:
+  Most students reported that they had missed an interesting event because they found out about it too late.
+  
+  
+  Question 5 Feedback:
+  Responses ranged from neutral to negative, with no highly positive ratings. About half of students rated the experience negatively, while   the other half gave neutral ratings.
+
+    
+
       
