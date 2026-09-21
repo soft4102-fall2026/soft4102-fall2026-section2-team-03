@@ -101,5 +101,12 @@ EVIDENCE 2: ASK IN A SURVEY
   Responses ranged from neutral to negative, with no highly positive ratings. About half of students rated the experience negatively, while   the other half gave neutral ratings.
 
     
-
+PHASE 5:
+  Before this investigation, we thought students mainly struggled with finding events because university events were announced through scattered channels such as Outlook, social media, flyers, and word of mouth, and there was no effective centralized place to discover events.
+  
+  Our evidence suggests that there is already a centralized event section in Navigate360, but many students are unaware of it or do not use it regularly. Students mainly discover events through Outlook, friends/faculty, and social media, and many have missed events because they found out about them too late. When deciding whether to attend, students look for key information such as the date, time, location, event type, activities, purpose, and benefits. The existing Navigate360 event section provides some event information but has limited discovery features and does not appear to fully meet these needs.
+  
+  We are now interested in understanding what can be added or improved to help students easily discover relevant events, find the information they need, and receive event information in a way that is useful to them, whether through an improved existing system or a new application.
+  
+  Because our investigation showed that a centralized event section already exists, but students still rely on multiple channels to discover events, many are unaware of or do not use Navigate360, and most surveyed students have experienced missing events because they found out too late. This suggests an opportunity to explore improvements such as better search and filtering, personalized event discovery, clearer event information, notifications or reminders, and student engagement features.
       
