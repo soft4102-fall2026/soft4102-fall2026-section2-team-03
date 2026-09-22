@@ -10,4 +10,16 @@ PHASE 1:
   EMERGING UNDERSTANDING
     We now understand that: Individuals do not struggle only because university events are spread across different channels. A centralized event section already exists, but many Individuals are unaware of it or do not find it useful enough to use regularly. The deeper difficulty is helping Individuals discover relevant events easily, receive information early enough, and quickly understand whether an event is worth attending. This suggests that improving event discovery, personalization, event information, and timely notifications may be more important than simply creating another place to list events.
 
-  
+
+Phase 2:
+
+Who? Students/Faculty/Event organizers
+
+Need? Individuals want to easily discover relevant events, see important details, and avoid missing academic, social, and career opportunities.
+
+Difficulty? Information is scattered across platforms, emails can be missed, and Navigate360 has limited filtering, details, and personalization, making relevant events harder to find.
+
+Context? Individuals currently rely on Outlook, social media, flyers, friends, and Navigate360 to find events.
+
+Problem Frame: University individuals need to easily discover relevant university events and access the information they need to decide whether to attend, but they often miss events or struggle to find useful information because events are promoted across multiple channels, information can be incomplete or difficult to find, and the existing event section is not regularly used.
+
