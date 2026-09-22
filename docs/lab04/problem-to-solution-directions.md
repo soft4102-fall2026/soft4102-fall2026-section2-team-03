@@ -23,3 +23,47 @@ Context? Individuals currently rely on Outlook, social media, flyers, friends, a
 
 Problem Frame: University individuals need to easily discover relevant university events and access the information they need to decide whether to attend, but they often miss events or struggle to find useful information because events are promoted across multiple channels, information can be incomplete or difficult to find, and the existing event section is not regularly used.
 
+
+Phase 3: EXPLORE
+
+HMW 1: How might we help individuals quickly find events that actually match their interests and availability, instead of scrolling a flat list?
+
+
+HMW 2: How might we make university events easier for individuals to discover?
+
+
+HMW 3: How might we help individuals find the event information they need?
+
+
+Solution direction:
+
+
+HMW 1: Personalize event discovery
+
+
+HMW 2: Centralize and improve event discovery
+
+
+HMW 3: Improve event information and presentation
+
+
+What Could This Direction Improve or Change?:
+
+
+HMW 1: Help individuals see events that match their interests and needs
+
+
+HMW 2: Make events easier to find across the different sources individuals currently use
+
+
+HMW 3: Make important event details clearer, sectioned and easier to understand
+
+
+
+
+
+
+
+
+
+
