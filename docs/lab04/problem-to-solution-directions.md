@@ -61,6 +61,46 @@ HMW 3: Make important event details clearer, sectioned and easier to understand
 
 
 
+PHASE 4: 
+COMPARE
+
+
+Direction 1: Centralize and improve event discovery
+
+
+Addresses the Problem?: High
+Responds to What We Learned?: High
+Worth Investigating Further?: High — could make existing events easier to discover if everything is in one place rather than several sources.
+
+
+Direction 2: Improve event information and presentation
+
+Addresses the Problem?: High
+Responds to What We Learned?: High
+Worth Investigating Further?: High — clearer, sectioned information would be easier to understand.
+
+
+Direction 3: Personalize event discovery
+
+
+Addresses the Problem?: Medium
+Responds to What We Learned?: Medium
+Worth Investigating Further?: Medium — we still need to understand whether personalization is needed, or if students just want to discover events.
+
+
+
+SELECTED DIRECTION
+
+
+We selected: The first direction: Centralizing and improving discovery.
+
+
+Why is it worth investigating:
+It is worth investigating because finding events is the first step in deciding whether to attend, so centralizing the source of events is important.
+
+
+
+
 
 
 
