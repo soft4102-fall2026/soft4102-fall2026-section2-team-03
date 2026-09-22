@@ -99,11 +99,15 @@ Why is it worth investigating:
 It is worth investigating because finding events is the first step in deciding whether to attend, so centralizing the source of events is important.
 
 
+PHASE 5:
 
+  Selected Direction: Centralize and improve event discovery
+  Key Uncertainty: Whether a more centralized and improved way of discovering events would actually help individuals find relevant events more easily and avoid missing them.
+  Small Next Action: Review and analyze the information gathered from the survey and Navigate360 investigation to identify the most important improvements students need for event discovery.
 
+  KEY UNCERTAINTY
+    We still need to understand whether centralizing and improving event discovery would help individuals find relevant events more easily and avoid missing events.
 
-
-
-
-
+  SMALL NEXT ACTION
+    To learn more, we will review and analyze the findings we have already gathered from students and Navigate360 to identify the most important gaps and improvements needed in event discovery.
 
