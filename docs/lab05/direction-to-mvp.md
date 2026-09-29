@@ -52,3 +52,34 @@ Note: Individuals are UDST students, faculty and staff.
 
    If it is wrong: Centralizing events may make them easier to find but may not solve the problem of late discovery.
 
+PHASE 4:
+
+Part A: CAPABILITIES — What Must the Software Enable
+ 
+Expected Value: Find university events in one place
+Software Capability: Enable individuals to discover university events from different university sources in one centralized place.
+
+Expected Value: Find events worth their time
+Software Capability: Enable individuals to search and explore events based on information relevant to their interests and needs.
+
+Expected Value: Get enough information to decide whether to attend
+Software Capability: Enable individuals to quickly understand the key details of an event, including its date, time, location, purpose, and activities.
+
+Expected Value: Find out about events early enough to attend
+Software Capability: Enable individuals to become aware of upcoming events before they occur.
+
+Expected Value: Avoid missing relevant opportunities
+Software Capability: Enable individuals to keep track of upcoming events they may want to attend.
+
+Part B: PRIORITIZE — Protect the Core Value
+
+ESSENTIAL FOR CORE VALUE:
+1.Find university events in one place
+2.Get enough information to decide whether to attend
+3. Find out about events early enough to attend
+
+USEFUL, NOT ESSENTIAL YET:
+1.Find events worth their time
+2.Avoid missing relevant opportunities
+
+LATER: --
