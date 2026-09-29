@@ -112,3 +112,14 @@ NOT YET:
 
 
 The capabilities kept in are sufficient because they directly address the main problem we identified including students struggle to discover university events, find enough information about them, and learn about them early enough. By putting upcoming events in one place and showing clear key details, the MVP makes event discovery simpler and reduces the need to search through multiple sources. This allows us to test whether a centralized and organized event experience actually helps students find and understand events more easily.
+
+PHASE 7:
+
+What core MVP flow will we make tangible?
+  The MVP will show how users can browse upcoming university events, search or filter them, and view key details to decide whether to attend.
+
+Which tool will we use, and why? 
+  We will use AI-assisted development because it allows us to quickly create an interactive prototype and test the main user experience without building the full product.
+
+What are we deliberately NOT building?
+  We are not building personalized recommendations, reviews, attendance counts, notifications, or advanced features. These can be considered in future versions.
