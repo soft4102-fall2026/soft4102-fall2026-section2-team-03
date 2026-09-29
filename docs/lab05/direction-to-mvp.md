@@ -113,6 +113,42 @@ NOT YET:
 
 The capabilities kept in are sufficient because they directly address the main problem we identified including students struggle to discover university events, find enough information about them, and learn about them early enough. By putting upcoming events in one place and showing clear key details, the MVP makes event discovery simpler and reduces the need to search through multiple sources. This allows us to test whether a centralized and organized event experience actually helps students find and understand events more easily.
 
+
+
+PHASE 6:
+
+Centralized event listing
+
+Why essential to core value?: It is the core of the direction: one place instead of Outlook, social media and friends.
+If we remove it: There is nothing to discover, and the product stops existing.
+KEEP
+
+Clear event information
+
+Why essential to core value?:  Survey: students look for date, time, location, type, purpose and benefits to decide.
+If we remove it: People leave to ask friends or search social media, which is the current problem.
+KEEP
+
+
+Basic search/filtering
+
+Why essential to core value?: It helps students reach relevant events faster than scrolling a flat list.
+
+If we remove it: Students go back to scrolling an unfiltered list, and the MVP would be no better than the Navigate360 section they already ignore.
+
+KEEP
+
+
+Upcoming event visibility (soonest first)
+
+Why essential to core value?: It was meant to deliver finding out early enough to attend.
+
+If we remove it: Events are still listed with their dates, so a student can still see what is coming by reading the event details. Ordering is a convenience that the core value doesn't depend on.
+
+REMOVE
+
+
+
 PHASE 7:
 
 What core MVP flow will we make tangible?
