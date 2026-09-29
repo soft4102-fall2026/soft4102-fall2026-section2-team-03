@@ -83,3 +83,32 @@ USEFUL, NOT ESSENTIAL YET:
 2.Avoid missing relevant opportunities
 
 LATER: --
+
+
+PHASE 5: SCOPE
+
+A first version that allows UDST students and faculty to discover upcoming university events in one centralized place, view the key information they need to decide whether to attend and find events early enough to participate.
+
+
+IN THE MVP:
+
+-Centralized event listing
+
+-Clear event information 
+
+-Basic search/filtering to find events quickly
+
+-Upcoming event visibility to order the events starting with the soonest
+
+NOT YET:
+
+-Personalized event recommendations can be added later
+
+-Student ratings and reviews
+
+-Attendance counts
+
+-Notification and reminder systems
+
+
+The capabilities kept in are sufficient because they directly address the main problem we identified including students struggle to discover university events, find enough information about them, and learn about them early enough. By putting upcoming events in one place and showing clear key details, the MVP makes event discovery simpler and reduces the need to search through multiple sources. This allows us to test whether a centralized and organized event experience actually helps students find and understand events more easily.
