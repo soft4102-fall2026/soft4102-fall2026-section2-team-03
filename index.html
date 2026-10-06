@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Campus Events – Lab 06 prototype (Team 03)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --soft:#F5F7FB; --ink:#152238; --muted:#5F6B7E; --line:#E3E8F0;
+  --blue:#1A4FB4; --blue-dark:#0F3477; --blue-tint:#EAF1FD;
+  --it:#E8B100; --it-tint:#FFF6D6; --it-text:#6E5300;
+  --eng:#EF7A1A; --eng-tint:#FFEEDF; --eng-text:#93450A;
+  --bus:#2F7BEA; --bus-tint:#E5EFFD; --bus-text:#1A4FA0;
+  --hlth:#1FA463; --hlth-tint:#E2F6EC; --hlth-text:#11683E;
+  --oth:#8A5CE6; --oth-tint:#F0EAFD; --oth-text:#5631A8;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html,body{height:100%}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;min-height:100%}
+h1,h2,h3{margin:0;line-height:1.15}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.hide{display:none!important}
+.pad{padding-left:clamp(16px,4vw,64px);padding-right:clamp(16px,4vw,64px)}
+
+/* top navigation */
+.nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:4}
+.nav .in{display:flex;align-items:center;gap:28px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;color:var(--blue-dark);cursor:pointer;border:0;background:none;padding:0}
+.logo{width:36px;height:36px;border-radius:9px;background:var(--blue);color:#fff;display:grid;place-items:center}
+.links{display:flex;gap:4px;margin-left:12px}
+.links span{padding:8px 14px;border-radius:8px;color:var(--muted);font-weight:500}
+.links span.on{background:var(--blue-tint);color:var(--blue);font-weight:700}
+.navsearch{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:0 12px;width:min(380px,40vw)}
+.navsearch input{border:0;background:transparent;outline:none;padding:10px 0;flex:1;min-width:0}
+.navsearch svg{color:var(--muted);flex:none}
+
+/* hero */
+.hero{background:var(--blue);color:#fff;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:
+  radial-gradient(circle at 85% 20%,rgba(255,255,255,.12) 0 160px,transparent 161px),
+  radial-gradient(circle at 95% 110%,rgba(255,255,255,.08) 0 220px,transparent 221px);pointer-events:none}
+.hero .in{padding-top:48px;padding-bottom:52px;position:relative;z-index:1}
+.hero h1{font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-.02em;max-width:18ch}
+.hero p{margin:12px 0 0;font-size:18px;opacity:.88;max-width:52ch}
+.legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:26px;font-size:15px}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+/* main layout */
+main{flex:1}
+.layout{display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px;padding-top:36px;padding-bottom:64px;align-items:start}
+.side{position:sticky;top:92px}
+.side h3{font-size:14px;font-weight:700;color:var(--muted);margin:0 0 8px}
+.fl{list-style:none;margin:0 0 28px;padding:0}
+.fbtn{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;text-align:left;padding:8px 10px;border-radius:8px;cursor:pointer;font-weight:500}
+.fbtn:hover{background:var(--soft)}
+.fbtn[aria-pressed="true"]{background:var(--blue-tint);color:var(--blue);font-weight:700}
+.fbtn i{width:12px;height:12px;border-radius:3px;flex:none}
+.fbtn .n{margin-left:auto;color:var(--muted);font-size:14px;font-weight:500}
+.reshead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:18px}
+.reshead h2{font-size:26px;font-weight:800}
+.reshead span{color:var(--muted)}
+.clear{border:0;background:none;color:var(--blue);font-weight:600;cursor:pointer;padding:0}
+
+/* event cards */
+.grid{list-style:none;margin:0;padding:0;display:grid;gap:22px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.grid li{display:flex}
+.card{display:flex;flex-direction:column;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:14px;padding:0;cursor:pointer;overflow:hidden;transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(21,34,56,.10)}
+.banner{position:relative;height:110px;background:var(--cc);background-image:
+  repeating-linear-gradient(135deg,rgba(255,255,255,.14) 0 14px,transparent 14px 28px)}
+.badge{position:absolute;left:16px;bottom:-22px;width:58px;background:#fff;border-radius:10px;text-align:center;padding:6px 0 5px;box-shadow:0 4px 12px rgba(21,34,56,.14)}
+.badge .m{display:block;font-size:12px;font-weight:700;color:var(--blue)}
+.badge .d{display:block;font-size:24px;font-weight:800;line-height:1.05;color:var(--blue-dark)}
+.collab{position:absolute;right:12px;top:12px;background:#fff;color:var(--cx);font-size:13px;font-weight:700;border-radius:999px;padding:3px 10px}
+.cbody{padding:32px 18px 18px;display:flex;flex-direction:column;gap:4px;flex:1}
+.cbody h3{font-size:19px;font-weight:700;margin-bottom:6px}
+.line{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:15px}
+.line svg{flex:none}
+.cfoot{margin-top:auto;padding-top:12px;display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--muted)}
+.type{background:var(--soft);border-radius:6px;padding:2px 9px;font-weight:600;color:var(--ink)}
+.empty{grid-column:1/-1;padding:48px 16px;text-align:center;color:var(--muted);background:var(--soft);border-radius:14px}
+
+/* event page */
+.ehero{background:var(--ct);border-bottom:6px solid var(--cc)}
+.ehero .in{padding-top:28px;padding-bottom:36px}
+.crumb{display:flex;gap:8px;align-items:center;font-size:15px;color:var(--muted);margin-bottom:22px}
+.crumb button{border:0;background:none;padding:0;color:var(--blue);font-weight:600;cursor:pointer}
+.pill{display:inline-block;font-size:14px;font-weight:700;border-radius:999px;padding:4px 12px;background:#fff;color:var(--cx);margin-right:6px}
+.ehero h1{font-size:clamp(30px,4vw,48px);font-weight:800;letter-spacing:-.02em;margin:14px 0 8px;max-width:24ch}
+.ehero p{margin:0;color:var(--muted);font-size:17px}
+.elayout{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;padding-top:36px;padding-bottom:64px;align-items:start}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:32px}
+.fact{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:16px}
+.fact .ic{flex:none;width:40px;height:40px;border-radius:10px;background:var(--blue-tint);color:var(--blue);display:grid;place-items:center}
+.fact b{display:block;font-size:14px;color:var(--muted);font-weight:500}
+.fact span{font-weight:700;font-size:17px}
+.sec{margin-bottom:28px;max-width:72ch}
+.sec h2{font-size:22px;font-weight:800;margin-bottom:8px}
+.sec p{margin:0;font-size:17px}
+.sec ul{margin:0;padding:0;list-style:none}
+.sec li{position:relative;padding-left:22px;margin:8px 0;font-size:17px}
+.sec li::before{content:"";position:absolute;left:4px;top:10px;width:8px;height:8px;border-radius:50%;background:var(--blue)}
+.decide{background:var(--blue-tint);border-radius:16px;padding:22px;position:sticky;top:92px}
+.decide h2{font-size:20px;font-weight:800;margin-bottom:4px}
+.decide p{margin:0 0 14px;color:var(--muted)}
+.opts{display:grid;gap:10px}
+.opt{border:1.5px solid #fff;background:#fff;border-radius:12px;padding:13px 16px;text-align:left;cursor:pointer;font-weight:600}
+.opt:hover{border-color:#B9CCEE}
+.opt[aria-pressed="true"]{border-color:var(--blue);color:var(--blue-dark)}
+.missing{margin-top:14px;display:none}
+.missing.show{display:block}
+.missing label{display:block;font-weight:600;margin-bottom:6px}
+.missing textarea{width:100%;min-height:96px;border:1px solid #C6D3E8;border-radius:10px;padding:10px 12px;background:#fff;resize:vertical}
+.primary{margin-top:10px;background:var(--blue);color:#fff;border:0;border-radius:10px;padding:11px 22px;cursor:pointer;font-weight:700}
+.primary:hover{background:var(--blue-dark)}
+.thanks{margin-top:12px;color:var(--hlth-text);font-weight:700;display:none}
+.thanks.show{display:block}
+
+/* footer */
+footer{background:var(--soft);border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+footer .in{padding-top:22px;padding-bottom:22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* facilitator panel */
+.obs-btn{position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;opacity:.2;font-size:11px;z-index:6}
+.obs-btn:hover,.obs-btn:focus-visible{opacity:1}
+.obs{position:fixed;left:0;right:0;bottom:0;max-height:60vh;background:#fff;border-top:3px solid var(--blue);padding:16px clamp(16px,4vw,64px) calc(16px + env(safe-area-inset-bottom,0px));overflow:auto;display:none;z-index:7;box-shadow:0 -10px 30px rgba(21,34,56,.15)}
+.obs.show{display:block}
+.obs .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+.obs .bar h3{font-size:17px;margin-right:auto}
+.obs .bar button{border:1px solid var(--line);background:var(--soft);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:14px}
+.obs .sum{font-size:14px;color:var(--muted);margin-bottom:8px}
+.obs ol{margin:0;padding-left:20px;font-size:14px}
+.obs time{color:var(--muted)}
+
+/* smaller screens */
+@media (max-width:1000px){
+  .elayout{grid-template-columns:1fr}
+  .decide{position:static}
+  .facts{grid-template-columns:1fr}
+}
+@media (max-width:820px){
+  .links{display:none}
+  .layout{grid-template-columns:1fr;gap:20px}
+  .side{position:static}
+  .fl{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px}
+  .fbtn{white-space:nowrap;border:1px solid var(--line);border-radius:999px}
+  .fbtn .n{display:none}
+}
+@media (max-width:560px){
+  .brand .txt{display:none}
+  .navsearch{width:auto;flex:1}
+}
+@media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="in pad">
+    <button class="brand" id="home" aria-label="Campus Events home">
+      <span class="logo" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+      <span class="txt">Campus Events</span>
+    </button>
+    <div class="links" aria-hidden="true"><span class="on">Events</span></div>
+    <label class="navsearch">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search events, clubs or places" aria-label="Search events">
+    </label>
+  </div>
+</nav>
+
+<main>
+  <!-- LIST PAGE -->
+  <div id="listView">
+    <section class="hero">
+      <div class="in pad">
+        <h1>What's happening on campus</h1>
+        <p>Talks, workshops, competitions and social events from every college, all in one place.</p>
+        <div class="legend" id="legend"></div>
+      </div>
+    </section>
+    <div class="layout pad">
+      <aside class="side" aria-label="Filters">
+        <h3>College</h3><ul class="fl" id="colList"></ul>
+        <h3>Event type</h3><ul class="fl" id="catList"></ul>
+      </aside>
+      <section>
+        <div class="reshead"><h2 id="resTitle">All events</h2><span><span id="count"></span> <button class="clear hide" id="clear">Clear filters</button></span></div>
+        <ul class="grid" id="grid"></ul>
+      </section>
+    </div>
+  </div>
+
+  <!-- EVENT PAGE -->
+  <div id="detailView" class="hide"></div>
+</main>
+
+<footer><div class="in pad"><span>Campus Events, a SOFT4102 Team 03 prototype</span><span>Sample events for testing only</span></div></footer>
+
+<button class="obs-btn" id="obsBtn" aria-label="Open facilitator log" title="Facilitator log (or press L)">●</button>
+<aside class="obs" id="obs" aria-label="Facilitator log">
+  <div class="bar"><h3>Facilitator log</h3><button id="copyLog">Copy log</button><button id="newP">New participant</button><button id="closeObs">Close</button></div>
+  <div class="sum" id="sum"></div>
+  <ol id="logList"></ol>
+</aside>
+
+<script>
+/* Sample data: fictional events, MVP fields only.
+   Deliberately NOT included (Lab 05 "NOT YET"): ratings, attendance counts,
+   food / certificate tags, registration links. Order is "as posted", not soonest-first. */
+const COLLEGES = {
+  IT:{name:"Computing & IT",v:"it"}, ENG:{name:"Engineering",v:"eng"}, BUS:{name:"Business",v:"bus"},
+  HLTH:{name:"Health Sciences",v:"hlth"}, OTH:{name:"University-wide",v:"oth"}
+};
+const EVENTS = [
+  {id:"e1",title:"Intro to Git and GitHub",col:"IT",cat:"Workshop",org:"Computing Society",date:"2026-10-22",time:"1:00 – 2:30 pm",loc:"Building 5, Lab 2.14",
+   purpose:"A hands-on session for students who have never used version control and need it for course projects.",
+   acts:["Set up Git on your own laptop","Create and clone a repository","Practise commits, branches and pull requests in pairs"]},
+  {id:"e2",title:"Fall Career Fair",col:"OTH",cat:"Career",org:"Career Services",date:"2026-11-04",time:"10:00 am – 2:00 pm",loc:"Main Atrium, Building 1",
+   purpose:"Meet employers from energy, engineering, IT and healthcare who are hiring interns and graduates.",
+   acts:["Employer booths","On-the-spot CV feedback","Short talks from recruiters every hour"]},
+  {id:"e3",title:"Bridge-Building Challenge",col:"ENG",cat:"Competition",org:"Civil Engineering Society",date:"2026-10-27",time:"3:00 – 6:00 pm",loc:"Engineering Workshop, Building 6",
+   purpose:"Teams design and build a model bridge, then test how much weight it can hold.",
+   acts:["Form teams of three","Two-hour build","Load testing and judging"]},
+  {id:"e4",title:"Startup Pitch Night",col:"BUS",cat:"Competition",org:"Entrepreneurship Club",date:"2026-11-09",time:"6:00 – 8:30 pm",loc:"Auditorium, Building 2",
+   purpose:"Student teams pitch business ideas to a panel of local founders and investors.",
+   acts:["Five-minute pitches","Panel feedback","Networking afterwards"]},
+  {id:"e5",title:"First Aid Basics",col:"HLTH",cat:"Workshop",org:"College of Health Sciences",date:"2026-10-24",time:"10:00 am – 12:00 pm",loc:"Simulation Lab, Building 7",
+   purpose:"Learn what to do in the first minutes of a medical emergency, open to all students.",
+   acts:["CPR practice on manikins","Choking and bleeding response","Short scenario drills"]},
+  {id:"e6",title:"International Food Day",col:"OTH",cat:"Cultural",org:"Student Affairs",date:"2026-10-29",time:"12:00 – 3:00 pm",loc:"Central Courtyard",
+   purpose:"Celebrate the many nationalities on campus through food, music and traditional dress.",
+   acts:["Country stalls run by student groups","Live music","Traditional dress parade"]},
+  {id:"e7",title:"Guest Lecture: AI in the Energy Sector",col:"IT",cat:"Talk",org:"College of Computing & IT",date:"2026-11-11",time:"6:00 – 7:30 pm",loc:"Auditorium, Building 2",
+   purpose:"An industry speaker explains how machine learning is used in oil and gas operations and safety.",
+   acts:["Lecture","Live demo","Audience questions"]},
+  {id:"e8",title:"CV Clinic for Business Students",col:"BUS",cat:"Career",org:"College of Business",date:"2026-10-20",time:"2:00 – 4:00 pm",loc:"Building 3, Room 2.05",
+   purpose:"Get one-to-one feedback on your CV before the career fair.",
+   acts:["15-minute individual reviews","CV templates","Tips for your LinkedIn profile"]},
+  {id:"e9",title:"Robotics Club Open Day",col:"ENG",cat:"Social",org:"Robotics Club",date:"2026-11-01",time:"4:00 – 6:00 pm",loc:"Mechatronics Lab, Building 6",
+   purpose:"See what the robotics team is building this year and find out how to join.",
+   acts:["Robot demos","Try driving a competition robot","Meet the team"]},
+  {id:"e10",title:"Blood Donation Drive",col:"HLTH",cat:"Volunteering",org:"Health Sciences Student Council",date:"2026-11-05",time:"9:00 am – 1:00 pm",loc:"Main Atrium, Building 1",
+   purpose:"Donate blood with the national blood bank team on campus.",
+   acts:["Quick health screening","Donation (about 15 minutes)","Rest and refreshments area"]},
+  {id:"e11",title:"Hackathon Info Session",col:"IT",cat:"Talk",org:"Innovation Hub",date:"2026-11-02",time:"12:30 – 1:15 pm",loc:"Building 5, Room 0.10",
+   purpose:"Find out how the spring hackathon works and how to form a team.",
+   acts:["Overview of themes and rules","Meet past winners","Team matching"]},
+  {id:"e12",title:"Exam Stress: Study Smarter",col:"OTH",cat:"Workshop",org:"Counselling & Wellbeing",date:"2026-12-01",time:"11:00 am – 12:00 pm",loc:"Building 3, Room 1.08",
+   purpose:"Practical techniques for planning revision and managing stress before final exams.",
+   acts:["Short talk","Build your own revision timetable","Q&A with a counsellor"]},
+  {id:"e13",title:"Board Games Night",col:"OTH",cat:"Social",org:"Student Council",date:"2026-10-28",time:"7:00 – 10:00 pm",loc:"Student Lounge, Building 4",
+   purpose:"Unwind mid-semester and meet students from other programmes.",
+   acts:["Board and card games","Mini tournaments"]}
+];
+const CATS = ["Workshop","Talk","Career","Competition","Social","Cultural","Volunteering"];
+const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const LONG_M=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const LONG_D=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const SHORT_D=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const parse=s=>{const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d);};
+const longDate=s=>{const d=parse(s);return `${LONG_D[d.getDay()]}, ${d.getDate()} ${LONG_M[d.getMonth()]}`;};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const colVars=k=>{const v=COLLEGES[k].v;return `--cc:var(--${v});--ct:var(--${v}-tint);--cx:var(--${v}-text)`;};
+const I={
+  clock:s=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>`,
+  pin:s=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>`,
+  cal:s=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>`
+};
+
+/* Session log */
+const KEY="lab06-log";
+let session=load()||{participant:1,start:Date.now(),log:[]};
+function load(){try{return JSON.parse(localStorage.getItem(KEY));}catch(e){return null;}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(session));}catch(e){}}
+function log(type,detail){session.log.push({t:Date.now(),type,detail:detail||""});save();renderLog();}
+function stamp(t){const s=Math.round((t-session.start)/1000);return `${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;}
+
+/* List page */
+let state={q:"",cat:"All",col:"All"};
+const $=id=>document.getElementById(id);
+$("legend").innerHTML=Object.values(COLLEGES).map(c=>`<span><i style="background:var(--${c.v})"></i>${c.name}</span>`).join("");
+
+function matches(e,skip){
+  const q=state.q.trim().toLowerCase();
+  return (skip==="cat"||state.cat==="All"||e.cat===state.cat)&&
+         (skip==="col"||state.col==="All"||e.col===state.col)&&
+         (!q||[e.title,e.org,e.loc,e.purpose,e.cat,COLLEGES[e.col].name,...e.acts].join(" ").toLowerCase().includes(q));
+}
+function renderFilters(){
+  const cc=k=>EVENTS.filter(e=>matches(e,"col")&&(k==="All"||e.col===k)).length;
+  const tc=k=>EVENTS.filter(e=>matches(e,"cat")&&(k==="All"||e.cat===k)).length;
+  $("colList").innerHTML=`<li><button class="fbtn" data-col="All" aria-pressed="${state.col==="All"}">All colleges<span class="n">${cc("All")}</span></button></li>`+
+    Object.entries(COLLEGES).map(([k,c])=>`<li><button class="fbtn" data-col="${k}" aria-pressed="${state.col===k}"><i style="background:var(--${c.v})"></i>${c.name}<span class="n">${cc(k)}</span></button></li>`).join("");
+  $("catList").innerHTML=`<li><button class="fbtn" data-cat="All" aria-pressed="${state.cat==="All"}">All types<span class="n">${tc("All")}</span></button></li>`+
+    CATS.map(c=>`<li><button class="fbtn" data-cat="${c}" aria-pressed="${state.cat===c}">${c}<span class="n">${tc(c)}</span></button></li>`).join("");
+  $("clear").classList.toggle("hide",state.col==="All"&&state.cat==="All"&&!state.q.trim());
+}
+function renderGrid(){
+  const items=EVENTS.filter(e=>matches(e));
+  const bits=[];
+  if(state.col!=="All")bits.push(COLLEGES[state.col].name);
+  if(state.cat!=="All")bits.push(state.cat+"s");
+  $("resTitle").textContent=state.q.trim()?`Results for “${state.q.trim()}”`:(bits.length?bits.join(", "):"All events");
+  $("count").textContent=`${items.length} event${items.length===1?"":"s"}`;
+  $("grid").innerHTML=items.length?items.map(e=>{
+    const d=parse(e.date);
+    return `<li><button class="card" data-id="${e.id}" style="${colVars(e.col)}">
+      <span class="banner"><span class="collab">${COLLEGES[e.col].name}</span>
+        <span class="badge" aria-hidden="true"><span class="m">${MONTHS[d.getMonth()]}</span><span class="d">${d.getDate()}</span></span></span>
+      <span class="cbody">
+        <h3>${esc(e.title)}</h3>
+        <span class="line">${I.clock(16)}${SHORT_D[d.getDay()]}, ${esc(e.time)}</span>
+        <span class="line">${I.pin(16)}${esc(e.loc)}</span>
+        <span class="cfoot"><span>${esc(e.org)}</span><span class="type">${e.cat}</span></span>
+      </span></button></li>`;
+  }).join(""):`<li class="empty">No events match your search. Try another word or clear the filters.</li>`;
+  renderFilters();
+}
+$("colList").addEventListener("click",e=>{const b=e.target.closest(".fbtn");if(!b)return;state.col=b.dataset.col;renderGrid();log("filter: college",state.col==="All"?"All":COLLEGES[state.col].name);});
+$("catList").addEventListener("click",e=>{const b=e.target.closest(".fbtn");if(!b)return;state.cat=b.dataset.cat;renderGrid();log("filter: type",state.cat);});
+$("clear").onclick=()=>{state={q:"",cat:"All",col:"All"};$("q").value="";renderGrid();log("filter","cleared");};
+let qTimer;
+$("q").addEventListener("input",e=>{
+  state.q=e.target.value;if(current)closeEvent();renderGrid();
+  clearTimeout(qTimer);qTimer=setTimeout(()=>{if(state.q.trim())log("search",`"${state.q.trim()}" → ${EVENTS.filter(x=>matches(x)).length} results`);},900);
+});
+$("grid").addEventListener("click",e=>{const b=e.target.closest(".card");if(b)openEvent(b.dataset.id);});
+$("home").onclick=()=>{if(current)closeEvent();};
+
+/* Event page */
+let openedAt=0,current=null;
+function openEvent(id){
+  current=EVENTS.find(e=>e.id===id);openedAt=Date.now();log("open",current.title);
+  const e=current,c=COLLEGES[e.col];
+  $("detailView").innerHTML=`
+    <section class="ehero" style="${colVars(e.col)}"><div class="in pad">
+      <div class="crumb"><button id="back">Events</button><span>/</span><span>${esc(e.title)}</span></div>
+      <span class="pill">${c.name}</span><span class="pill" style="color:var(--ink)">${e.cat}</span>
+      <h1>${esc(e.title)}</h1>
+      <p>Organised by ${esc(e.org)}</p>
+    </div></section>
+    <div class="elayout pad">
+      <div>
+        <div class="facts">
+          <div class="fact"><span class="ic">${I.cal(20)}</span><div><b>Date</b><span>${longDate(e.date)}</span></div></div>
+          <div class="fact"><span class="ic">${I.clock(20)}</span><div><b>Time</b><span>${esc(e.time)}</span></div></div>
+          <div class="fact"><span class="ic">${I.pin(20)}</span><div><b>Location</b><span>${esc(e.loc)}</span></div></div>
+        </div>
+        <div class="sec"><h2>About this event</h2><p>${esc(e.purpose)}</p></div>
+        <div class="sec"><h2>What you'll do</h2><ul>${e.acts.map(a=>`<li>${esc(a)}</li>`).join("")}</ul></div>
+      </div>
+      <aside class="decide">
+        <h2>Would you go to this event?</h2>
+        <p>Pick the answer closest to what you'd really do.</p>
+        <div class="opts" role="group" aria-label="Your decision">
+          <button class="opt" data-d="Yes, I'd go" aria-pressed="false">Yes, I'd go</button>
+          <button class="opt" data-d="No, not for me" aria-pressed="false">No, not for me</button>
+          <button class="opt" data-d="I'd need to check somewhere else first" aria-pressed="false">I'd need to check somewhere else first</button>
+        </div>
+        <div class="missing" id="missing">
+          <label for="missTxt">What would you want to find out, and where would you look?</label>
+          <textarea id="missTxt" placeholder="Type your answer here"></textarea>
+          <button class="primary" id="sendMiss">Save answer</button>
+        </div>
+        <p class="thanks" id="thanks">Answer saved. Thank you!</p>
+      </aside>
+    </div>`;
+  $("listView").classList.add("hide");$("detailView").classList.remove("hide");window.scrollTo(0,0);
+  $("back").onclick=closeEvent;
+  $("detailView").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    $("detailView").querySelectorAll(".opt").forEach(x=>x.setAttribute("aria-pressed",x===b));
+    const d=b.dataset.d,need=d.startsWith("I'd need");
+    log("decision",`${e.title}: ${d} (after ${Math.round((Date.now()-openedAt)/1000)}s)`);
+    $("missing").classList.toggle("show",need);$("thanks").classList.toggle("show",!need);
+    if(need)$("missTxt").focus();
+  });
+  $("sendMiss").onclick=()=>{const t=$("missTxt").value.trim();if(!t){$("missTxt").focus();return;}
+    log("missing info",`${e.title}: ${t}`);$("missing").classList.remove("show");$("thanks").classList.add("show");};
+}
+function closeEvent(){
+  if(current)log("back",`${current.title} (viewed ${Math.round((Date.now()-openedAt)/1000)}s)`);
+  current=null;$("detailView").classList.add("hide");$("listView").classList.remove("hide");window.scrollTo(0,0);
+}
+
+/* Facilitator panel (press L or tap the faint dot, bottom right) */
+function renderLog(){
+  const L=session.log,n=t=>L.filter(x=>x.type.startsWith(t)).length;
+  $("sum").textContent=`Participant ${session.participant}: ${n("open")} events opened, ${n("search")} searches, ${n("filter")} filter taps, ${n("decision")} decisions, ${n("missing")} "need more info" notes.`;
+  $("logList").innerHTML=L.map(x=>`<li><time>${stamp(x.t)}</time> <b>${x.type}</b> ${esc(x.detail)}</li>`).join("")||"<li>No actions yet.</li>";
+}
+const logText=()=>`Lab 06 Team 03, participant ${session.participant}\n`+session.log.map(x=>`${stamp(x.t)}\t${x.type}\t${x.detail}`).join("\n");
+$("obsBtn").onclick=()=>$("obs").classList.toggle("show");
+$("closeObs").onclick=()=>$("obs").classList.remove("show");
+document.addEventListener("keydown",e=>{if(e.key.toLowerCase()==="l"&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName))$("obs").classList.toggle("show");});
+$("copyLog").onclick=async()=>{try{await navigator.clipboard.writeText(logText());$("copyLog").textContent="Copied";}catch(err){prompt("Copy the log:",logText());}setTimeout(()=>$("copyLog").textContent="Copy log",1500);};
+$("newP").onclick=()=>{if(!confirm("Start a new participant? Copy the current log first, it will be cleared."))return;
+  session={participant:session.participant+1,start:Date.now(),log:[]};save();
+  state={q:"",cat:"All",col:"All"};$("q").value="";closeEvent();renderGrid();renderLog();log("start","new session");};
+
+renderGrid();renderLog();
+if(!session.log.length)log("start","new session");
+</script>
+</body>
+</html>
