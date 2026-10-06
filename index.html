@@ -6,7 +6,7 @@
 <title>Campus Events – Lab 06 prototype (Team 03)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#FFFFFF; --soft:#F5F7FB; --ink:#152238; --muted:#5F6B7E; --line:#E3E8F0;
@@ -25,108 +25,120 @@
 html,body{height:100%}
 html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;min-height:100%}
-h1,h2,h3{margin:0;line-height:1.15}
+h1,h2,h3{margin:0;line-height:1.15;font-family:"Fredoka","Figtree",system-ui,sans-serif;font-weight:600}
 button,input,textarea{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 .hide{display:none!important}
 .pad{padding-left:clamp(16px,4vw,64px);padding-right:clamp(16px,4vw,64px)}
 
-/* top navigation */
+/* media (illustration, with optional real photo on top) */
+.media{position:relative;overflow:hidden;background:var(--cc)}
+.media svg,.media img{position:absolute;inset:0;width:100%;height:100%;display:block}
+.media img{object-fit:cover}
+
+/* nav */
 .nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:4}
-.nav .in{display:flex;align-items:center;gap:28px;height:68px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;color:var(--blue-dark);cursor:pointer;border:0;background:none;padding:0}
-.logo{width:36px;height:36px;border-radius:9px;background:var(--blue);color:#fff;display:grid;place-items:center}
+.nav .in{display:flex;align-items:center;gap:28px;height:70px}
+.brand{display:flex;align-items:center;gap:10px;font:600 22px "Fredoka",sans-serif;color:var(--blue-dark);cursor:pointer;border:0;background:none;padding:0}
+.logo{width:38px;height:38px;border-radius:12px;background:var(--blue);color:#fff;display:grid;place-items:center}
 .links{display:flex;gap:4px;margin-left:12px}
-.links span{padding:8px 14px;border-radius:8px;color:var(--muted);font-weight:500}
-.links span.on{background:var(--blue-tint);color:var(--blue);font-weight:700}
-.navsearch{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:0 12px;width:min(380px,40vw)}
-.navsearch input{border:0;background:transparent;outline:none;padding:10px 0;flex:1;min-width:0}
+.links span{padding:8px 16px;border-radius:999px;color:var(--muted);font-weight:600}
+.links span.on{background:var(--blue-tint);color:var(--blue)}
+.navsearch{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:0 16px;width:min(400px,40vw)}
+.navsearch input{border:0;background:transparent;outline:none;padding:11px 0;flex:1;min-width:0}
 .navsearch svg{color:var(--muted);flex:none}
 
 /* hero */
-.hero{background:var(--blue);color:#fff;position:relative;overflow:hidden}
-.hero::after{content:"";position:absolute;inset:0;background:
-  radial-gradient(circle at 85% 20%,rgba(255,255,255,.12) 0 160px,transparent 161px),
-  radial-gradient(circle at 95% 110%,rgba(255,255,255,.08) 0 220px,transparent 221px);pointer-events:none}
-.hero .in{padding-top:48px;padding-bottom:52px;position:relative;z-index:1}
-.hero h1{font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-.02em;max-width:18ch}
-.hero p{margin:12px 0 0;font-size:18px;opacity:.88;max-width:52ch}
-.legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:26px;font-size:15px}
-.legend span{display:inline-flex;align-items:center;gap:8px}
-.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.hero{background:linear-gradient(120deg,#163F95 0%,#1A4FB4 45%,#3A63D8 100%);color:#fff;position:relative;overflow:hidden}
+.hero .in{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:center;padding-top:56px;padding-bottom:64px}
+.hero h1{font-size:clamp(36px,4.4vw,62px);font-weight:700;max-width:15ch}
+.hero p{margin:14px 0 0;font-size:19px;opacity:.9;max-width:46ch}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.legend span{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);border-radius:999px;padding:6px 14px 6px 8px;font-weight:600;font-size:15px}
+.legend i{width:16px;height:16px;border-radius:50%;display:inline-block;box-shadow:0 0 0 2px #fff}
+.collage{position:relative;height:330px}
+.collage .media{position:absolute;width:62%;aspect-ratio:16/10;border-radius:22px;box-shadow:0 18px 40px rgba(0,0,0,.28);border:5px solid #fff}
+.collage .m1{left:0;top:18px;transform:rotate(-5deg)}
+.collage .m2{right:0;top:0;transform:rotate(4deg)}
+.collage .m3{left:20%;bottom:0;transform:rotate(-1deg);z-index:2}
+@media (max-width:900px){.hero .in{grid-template-columns:1fr}.collage{display:none}}
 
-/* main layout */
+/* layout */
 main{flex:1}
-.layout{display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px;padding-top:36px;padding-bottom:64px;align-items:start}
-.side{position:sticky;top:92px}
-.side h3{font-size:14px;font-weight:700;color:var(--muted);margin:0 0 8px}
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:40px;padding-top:36px;padding-bottom:64px;align-items:start}
+.side{position:sticky;top:94px}
+.side h3{font-size:17px;margin:0 0 8px}
 .fl{list-style:none;margin:0 0 28px;padding:0}
-.fbtn{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;text-align:left;padding:8px 10px;border-radius:8px;cursor:pointer;font-weight:500}
+.fbtn{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;text-align:left;padding:9px 12px;border-radius:12px;cursor:pointer;font-weight:500}
 .fbtn:hover{background:var(--soft)}
 .fbtn[aria-pressed="true"]{background:var(--blue-tint);color:var(--blue);font-weight:700}
-.fbtn i{width:12px;height:12px;border-radius:3px;flex:none}
+.fbtn i{width:12px;height:12px;border-radius:50%;flex:none}
 .fbtn .n{margin-left:auto;color:var(--muted);font-size:14px;font-weight:500}
-.reshead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:18px}
-.reshead h2{font-size:26px;font-weight:800}
+.reshead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:20px}
+.reshead h2{font-size:32px}
 .reshead span{color:var(--muted)}
 .clear{border:0;background:none;color:var(--blue);font-weight:600;cursor:pointer;padding:0}
 
-/* event cards */
-.grid{list-style:none;margin:0;padding:0;display:grid;gap:22px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+/* cards */
+.grid{list-style:none;margin:0;padding:0;display:grid;gap:24px;grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
 .grid li{display:flex}
-.card{display:flex;flex-direction:column;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:14px;padding:0;cursor:pointer;overflow:hidden;transition:transform .15s,box-shadow .15s}
-.card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(21,34,56,.10)}
-.banner{position:relative;height:110px;background:var(--cc);background-image:
-  repeating-linear-gradient(135deg,rgba(255,255,255,.14) 0 14px,transparent 14px 28px)}
-.badge{position:absolute;left:16px;bottom:-22px;width:58px;background:#fff;border-radius:10px;text-align:center;padding:6px 0 5px;box-shadow:0 4px 12px rgba(21,34,56,.14)}
+.card{position:relative;display:flex;flex-direction:column;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:22px;padding:0;cursor:pointer;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(21,34,56,.14)}
+.card .media{height:180px}
+.card:hover .media svg{transform:scale(1.04)}
+.card .media svg{transition:transform .3s}
+.collab{position:absolute;left:14px;top:14px;background:#fff;color:var(--cx);font-size:13px;font-weight:700;border-radius:999px;padding:4px 12px;z-index:1;display:inline-flex;align-items:center;gap:6px}
+.collab i{width:9px;height:9px;border-radius:50%;background:var(--cc)}
+.badge{position:absolute;right:14px;bottom:-26px;z-index:2;width:62px;background:#fff;border-radius:14px;text-align:center;padding:7px 0 6px;box-shadow:0 6px 16px rgba(21,34,56,.16)}
 .badge .m{display:block;font-size:12px;font-weight:700;color:var(--blue)}
-.badge .d{display:block;font-size:24px;font-weight:800;line-height:1.05;color:var(--blue-dark)}
-.collab{position:absolute;right:12px;top:12px;background:#fff;color:var(--cx);font-size:13px;font-weight:700;border-radius:999px;padding:3px 10px}
-.cbody{padding:32px 18px 18px;display:flex;flex-direction:column;gap:4px;flex:1}
-.cbody h3{font-size:19px;font-weight:700;margin-bottom:6px}
-.line{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:15px}
-.line svg{flex:none}
-.cfoot{margin-top:auto;padding-top:12px;display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--muted)}
-.type{background:var(--soft);border-radius:6px;padding:2px 9px;font-weight:600;color:var(--ink)}
-.empty{grid-column:1/-1;padding:48px 16px;text-align:center;color:var(--muted);background:var(--soft);border-radius:14px}
+.badge .d{display:block;font:700 26px/1.05 "Fredoka",sans-serif;color:var(--blue-dark)}
+.cwrap{position:relative}
+.cbody{padding:20px 20px 20px;display:flex;flex-direction:column;gap:5px;flex:1}
+.cbody h3{font-size:22px;margin:4px 70px 6px 0}
+.line{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:15px}
+.line svg{flex:none;color:var(--blue)}
+.cfoot{margin-top:auto;padding-top:14px;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:14px;color:var(--muted)}
+.type{background:var(--soft);border-radius:999px;padding:3px 12px;font-weight:600;color:var(--ink);white-space:nowrap}
+.empty{grid-column:1/-1;padding:48px 16px;text-align:center;color:var(--muted);background:var(--soft);border-radius:22px}
 
 /* event page */
-.ehero{background:var(--ct);border-bottom:6px solid var(--cc)}
-.ehero .in{padding-top:28px;padding-bottom:36px}
-.crumb{display:flex;gap:8px;align-items:center;font-size:15px;color:var(--muted);margin-bottom:22px}
-.crumb button{border:0;background:none;padding:0;color:var(--blue);font-weight:600;cursor:pointer}
-.pill{display:inline-block;font-size:14px;font-weight:700;border-radius:999px;padding:4px 12px;background:#fff;color:var(--cx);margin-right:6px}
-.ehero h1{font-size:clamp(30px,4vw,48px);font-weight:800;letter-spacing:-.02em;margin:14px 0 8px;max-width:24ch}
-.ehero p{margin:0;color:var(--muted);font-size:17px}
+.ehero{background:var(--ct)}
+.ehero .in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:44px;align-items:center;padding-top:26px;padding-bottom:44px}
+.crumb{grid-column:1/-1}
+.crumb button{border:1px solid var(--line);background:#fff;padding:6px 14px 6px 10px;border-radius:999px;color:var(--ink);font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;border-radius:999px;padding:5px 13px;background:#fff;color:var(--cx);margin-right:6px}
+.pill i{width:9px;height:9px;border-radius:50%;background:var(--cc)}
+.ehero h1{font-size:clamp(34px,4.4vw,58px);margin:16px 0 10px;max-width:18ch}
+.ehero p{margin:0;color:var(--muted);font-size:18px;font-weight:500}
+.ehero .media{aspect-ratio:16/10;border-radius:26px;box-shadow:0 18px 40px rgba(21,34,56,.18)}
 .elayout{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;padding-top:36px;padding-bottom:64px;align-items:start}
 .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:32px}
-.fact{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:16px}
-.fact .ic{flex:none;width:40px;height:40px;border-radius:10px;background:var(--blue-tint);color:var(--blue);display:grid;place-items:center}
+.fact{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:18px;padding:16px}
+.fact .ic{flex:none;width:42px;height:42px;border-radius:12px;background:var(--blue-tint);color:var(--blue);display:grid;place-items:center}
 .fact b{display:block;font-size:14px;color:var(--muted);font-weight:500}
 .fact span{font-weight:700;font-size:17px}
 .sec{margin-bottom:28px;max-width:72ch}
-.sec h2{font-size:22px;font-weight:800;margin-bottom:8px}
+.sec h2{font-size:26px;margin-bottom:8px}
 .sec p{margin:0;font-size:17px}
 .sec ul{margin:0;padding:0;list-style:none}
-.sec li{position:relative;padding-left:22px;margin:8px 0;font-size:17px}
-.sec li::before{content:"";position:absolute;left:4px;top:10px;width:8px;height:8px;border-radius:50%;background:var(--blue)}
-.decide{background:var(--blue-tint);border-radius:16px;padding:22px;position:sticky;top:92px}
-.decide h2{font-size:20px;font-weight:800;margin-bottom:4px}
+.sec li{position:relative;padding-left:24px;margin:9px 0;font-size:17px}
+.sec li::before{content:"";position:absolute;left:4px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--cc)}
+.decide{background:var(--blue-tint);border-radius:24px;padding:24px;position:sticky;top:94px}
+.decide h2{font-size:24px;margin-bottom:4px}
 .decide p{margin:0 0 14px;color:var(--muted)}
 .opts{display:grid;gap:10px}
-.opt{border:1.5px solid #fff;background:#fff;border-radius:12px;padding:13px 16px;text-align:left;cursor:pointer;font-weight:600}
+.opt{border:1.5px solid #fff;background:#fff;border-radius:14px;padding:13px 16px;text-align:left;cursor:pointer;font-weight:600}
 .opt:hover{border-color:#B9CCEE}
 .opt[aria-pressed="true"]{border-color:var(--blue);color:var(--blue-dark)}
 .missing{margin-top:14px;display:none}
 .missing.show{display:block}
 .missing label{display:block;font-weight:600;margin-bottom:6px}
-.missing textarea{width:100%;min-height:96px;border:1px solid #C6D3E8;border-radius:10px;padding:10px 12px;background:#fff;resize:vertical}
-.primary{margin-top:10px;background:var(--blue);color:#fff;border:0;border-radius:10px;padding:11px 22px;cursor:pointer;font-weight:700}
+.missing textarea{width:100%;min-height:96px;border:1px solid #C6D3E8;border-radius:12px;padding:10px 12px;background:#fff;resize:vertical}
+.primary{margin-top:10px;background:var(--blue);color:#fff;border:0;border-radius:999px;padding:11px 24px;cursor:pointer;font-weight:700}
 .primary:hover{background:var(--blue-dark)}
 .thanks{margin-top:12px;color:var(--hlth-text);font-weight:700;display:none}
 .thanks.show{display:block}
 
-/* footer */
 footer{background:var(--soft);border-top:1px solid var(--line);color:var(--muted);font-size:14px}
 footer .in{padding-top:22px;padding-bottom:22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
@@ -142,11 +154,11 @@ footer .in{padding-top:22px;padding-bottom:22px;display:flex;justify-content:spa
 .obs ol{margin:0;padding-left:20px;font-size:14px}
 .obs time{color:var(--muted)}
 
-/* smaller screens */
 @media (max-width:1000px){
   .elayout{grid-template-columns:1fr}
   .decide{position:static}
   .facts{grid-template-columns:1fr}
+  .ehero .in{grid-template-columns:1fr}
 }
 @media (max-width:820px){
   .links{display:none}
@@ -156,11 +168,8 @@ footer .in{padding-top:22px;padding-bottom:22px;display:flex;justify-content:spa
   .fbtn{white-space:nowrap;border:1px solid var(--line);border-radius:999px}
   .fbtn .n{display:none}
 }
-@media (max-width:560px){
-  .brand .txt{display:none}
-  .navsearch{width:auto;flex:1}
-}
-@media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+@media (max-width:560px){.brand .txt{display:none}.navsearch{width:auto;flex:1}}
+@media (prefers-reduced-motion:reduce){.card,.card .media svg{transition:none}.card:hover{transform:none}}
 </style>
 </head>
 <body>
@@ -180,13 +189,15 @@ footer .in{padding-top:22px;padding-bottom:22px;display:flex;justify-content:spa
 </nav>
 
 <main>
-  <!-- LIST PAGE -->
   <div id="listView">
     <section class="hero">
       <div class="in pad">
-        <h1>What's happening on campus</h1>
-        <p>Talks, workshops, competitions and social events from every college, all in one place.</p>
-        <div class="legend" id="legend"></div>
+        <div>
+          <h1>Don't miss what's happening on campus</h1>
+          <p>Workshops, competitions, talks, food and games from every college, all in one place.</p>
+          <div class="legend" id="legend"></div>
+        </div>
+        <div class="collage" id="collage" aria-hidden="true"></div>
       </div>
     </section>
     <div class="layout pad">
@@ -200,8 +211,6 @@ footer .in{padding-top:22px;padding-bottom:22px;display:flex;justify-content:spa
       </section>
     </div>
   </div>
-
-  <!-- EVENT PAGE -->
   <div id="detailView" class="hide"></div>
 </main>
 
@@ -215,55 +224,60 @@ footer .in{padding-top:22px;padding-bottom:22px;display:flex;justify-content:spa
 </aside>
 
 <script>
-/* Sample data: fictional events, MVP fields only.
-   Deliberately NOT included (Lab 05 "NOT YET"): ratings, attendance counts,
-   food / certificate tags, registration links. Order is "as posted", not soonest-first. */
+/* ---------------------------------------------------------------
+   EVENT DATA (fictional, MVP fields only)
+   To use a real photo for an event, put the image in an "images"
+   folder next to this file and set  photo:"images/your-file.jpg".
+   If the photo is missing, the illustration is shown instead.
+   Deliberately NOT included (Lab 05 "NOT YET"): ratings, attendance
+   counts, food / certificate tags, registration links.
+---------------------------------------------------------------- */
 const COLLEGES = {
   IT:{name:"Computing & IT",v:"it"}, ENG:{name:"Engineering",v:"eng"}, BUS:{name:"Business",v:"bus"},
   HLTH:{name:"Health Sciences",v:"hlth"}, OTH:{name:"University-wide",v:"oth"}
 };
 const EVENTS = [
-  {id:"e1",title:"Intro to Git and GitHub",col:"IT",cat:"Workshop",org:"Computing Society",date:"2026-10-22",time:"1:00 – 2:30 pm",loc:"Building 5, Lab 2.14",
+  {id:"e1",art:"laptop",photo:"",title:"Intro to Git and GitHub",col:"IT",cat:"Workshop",org:"Computing Society",date:"2026-10-22",time:"1:00 – 2:30 pm",loc:"Building 5, Lab 2.14",
    purpose:"A hands-on session for students who have never used version control and need it for course projects.",
    acts:["Set up Git on your own laptop","Create and clone a repository","Practise commits, branches and pull requests in pairs"]},
-  {id:"e2",title:"Fall Career Fair",col:"OTH",cat:"Career",org:"Career Services",date:"2026-11-04",time:"10:00 am – 2:00 pm",loc:"Main Atrium, Building 1",
+  {id:"e2",art:"booths",photo:"",title:"Fall Career Fair",col:"OTH",cat:"Career",org:"Career Services",date:"2026-11-04",time:"10:00 am – 2:00 pm",loc:"Main Atrium, Building 1",
    purpose:"Meet employers from energy, engineering, IT and healthcare who are hiring interns and graduates.",
    acts:["Employer booths","On-the-spot CV feedback","Short talks from recruiters every hour"]},
-  {id:"e3",title:"Bridge-Building Challenge",col:"ENG",cat:"Competition",org:"Civil Engineering Society",date:"2026-10-27",time:"3:00 – 6:00 pm",loc:"Engineering Workshop, Building 6",
+  {id:"e3",art:"bridge",photo:"",title:"Bridge-Building Challenge",col:"ENG",cat:"Competition",org:"Civil Engineering Society",date:"2026-10-27",time:"3:00 – 6:00 pm",loc:"Engineering Workshop, Building 6",
    purpose:"Teams design and build a model bridge, then test how much weight it can hold.",
    acts:["Form teams of three","Two-hour build","Load testing and judging"]},
-  {id:"e4",title:"Startup Pitch Night",col:"BUS",cat:"Competition",org:"Entrepreneurship Club",date:"2026-11-09",time:"6:00 – 8:30 pm",loc:"Auditorium, Building 2",
+  {id:"e4",art:"stage",photo:"",title:"Startup Pitch Night",col:"BUS",cat:"Competition",org:"Entrepreneurship Club",date:"2026-11-09",time:"6:00 – 8:30 pm",loc:"Auditorium, Building 2",
    purpose:"Student teams pitch business ideas to a panel of local founders and investors.",
    acts:["Five-minute pitches","Panel feedback","Networking afterwards"]},
-  {id:"e5",title:"First Aid Basics",col:"HLTH",cat:"Workshop",org:"College of Health Sciences",date:"2026-10-24",time:"10:00 am – 12:00 pm",loc:"Simulation Lab, Building 7",
+  {id:"e5",art:"firstaid",photo:"",title:"First Aid Basics",col:"HLTH",cat:"Workshop",org:"College of Health Sciences",date:"2026-10-24",time:"10:00 am – 12:00 pm",loc:"Simulation Lab, Building 7",
    purpose:"Learn what to do in the first minutes of a medical emergency, open to all students.",
    acts:["CPR practice on manikins","Choking and bleeding response","Short scenario drills"]},
-  {id:"e6",title:"International Food Day",col:"OTH",cat:"Cultural",org:"Student Affairs",date:"2026-10-29",time:"12:00 – 3:00 pm",loc:"Central Courtyard",
+  {id:"e6",art:"food",photo:"",title:"International Food Day",col:"OTH",cat:"Cultural",org:"Student Affairs",date:"2026-10-29",time:"12:00 – 3:00 pm",loc:"Central Courtyard",
    purpose:"Celebrate the many nationalities on campus through food, music and traditional dress.",
    acts:["Country stalls run by student groups","Live music","Traditional dress parade"]},
-  {id:"e7",title:"Guest Lecture: AI in the Energy Sector",col:"IT",cat:"Talk",org:"College of Computing & IT",date:"2026-11-11",time:"6:00 – 7:30 pm",loc:"Auditorium, Building 2",
+  {id:"e7",art:"lecture",photo:"",title:"Guest Lecture: AI in the Energy Sector",col:"IT",cat:"Talk",org:"College of Computing & IT",date:"2026-11-11",time:"6:00 – 7:30 pm",loc:"Auditorium, Building 2",
    purpose:"An industry speaker explains how machine learning is used in oil and gas operations and safety.",
    acts:["Lecture","Live demo","Audience questions"]},
-  {id:"e8",title:"CV Clinic for Business Students",col:"BUS",cat:"Career",org:"College of Business",date:"2026-10-20",time:"2:00 – 4:00 pm",loc:"Building 3, Room 2.05",
+  {id:"e8",art:"cv",photo:"",title:"CV Clinic for Business Students",col:"BUS",cat:"Career",org:"College of Business",date:"2026-10-20",time:"2:00 – 4:00 pm",loc:"Building 3, Room 2.05",
    purpose:"Get one-to-one feedback on your CV before the career fair.",
    acts:["15-minute individual reviews","CV templates","Tips for your LinkedIn profile"]},
-  {id:"e9",title:"Robotics Club Open Day",col:"ENG",cat:"Social",org:"Robotics Club",date:"2026-11-01",time:"4:00 – 6:00 pm",loc:"Mechatronics Lab, Building 6",
+  {id:"e9",art:"robot",photo:"",title:"Robotics Club Open Day",col:"ENG",cat:"Social",org:"Robotics Club",date:"2026-11-01",time:"4:00 – 6:00 pm",loc:"Mechatronics Lab, Building 6",
    purpose:"See what the robotics team is building this year and find out how to join.",
    acts:["Robot demos","Try driving a competition robot","Meet the team"]},
-  {id:"e10",title:"Blood Donation Drive",col:"HLTH",cat:"Volunteering",org:"Health Sciences Student Council",date:"2026-11-05",time:"9:00 am – 1:00 pm",loc:"Main Atrium, Building 1",
+  {id:"e10",art:"heart",photo:"",title:"Blood Donation Drive",col:"HLTH",cat:"Volunteering",org:"Health Sciences Student Council",date:"2026-11-05",time:"9:00 am – 1:00 pm",loc:"Main Atrium, Building 1",
    purpose:"Donate blood with the national blood bank team on campus.",
    acts:["Quick health screening","Donation (about 15 minutes)","Rest and refreshments area"]},
-  {id:"e11",title:"Hackathon Info Session",col:"IT",cat:"Talk",org:"Innovation Hub",date:"2026-11-02",time:"12:30 – 1:15 pm",loc:"Building 5, Room 0.10",
+  {id:"e11",art:"hack",photo:"",title:"Hackathon Info Session",col:"IT",cat:"Talk",org:"Innovation Hub",date:"2026-11-02",time:"12:30 – 1:15 pm",loc:"Building 5, Room 0.10",
    purpose:"Find out how the spring hackathon works and how to form a team.",
    acts:["Overview of themes and rules","Meet past winners","Team matching"]},
-  {id:"e12",title:"Exam Stress: Study Smarter",col:"OTH",cat:"Workshop",org:"Counselling & Wellbeing",date:"2026-12-01",time:"11:00 am – 12:00 pm",loc:"Building 3, Room 1.08",
+  {id:"e12",art:"calm",photo:"",title:"Exam Stress: Study Smarter",col:"OTH",cat:"Workshop",org:"Counselling & Wellbeing",date:"2026-12-01",time:"11:00 am – 12:00 pm",loc:"Building 3, Room 1.08",
    purpose:"Practical techniques for planning revision and managing stress before final exams.",
    acts:["Short talk","Build your own revision timetable","Q&A with a counsellor"]},
-  {id:"e13",title:"Board Games Night",col:"OTH",cat:"Social",org:"Student Council",date:"2026-10-28",time:"7:00 – 10:00 pm",loc:"Student Lounge, Building 4",
+  {id:"e13",art:"games",photo:"",title:"Board Games Night",col:"OTH",cat:"Social",org:"Student Council",date:"2026-10-28",time:"7:00 – 10:00 pm",loc:"Student Lounge, Building 4",
    purpose:"Unwind mid-semester and meet students from other programmes.",
    acts:["Board and card games","Mini tournaments"]}
 ];
-const CATS = ["Workshop","Talk","Career","Competition","Social","Cultural","Volunteering"];
+const CATS=["Workshop","Talk","Career","Competition","Social","Cultural","Volunteering"];
 const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const LONG_M=["January","February","March","April","May","June","July","August","September","October","November","December"];
 const LONG_D=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
@@ -278,7 +292,122 @@ const I={
   cal:s=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>`
 };
 
-/* Session log */
+/* ---------------- Illustrations (flat event artwork) ---------------- */
+const INK="#152238", W="#FFFFFF", SKIN="#E9B48A", SKIN2="#B97A50", GOLD="#FFD45C", RED="#E8473C";
+const person=(x,y,s,shirt,skin,hair)=>`<g transform="translate(${x} ${y}) scale(${s})">
+  <path d="M-26 70 Q-26 20 0 20 Q26 20 26 70 Z" fill="${shirt}"/>
+  <circle cx="0" cy="0" r="16" fill="${skin}"/>
+  <path d="M-16 -2 Q-16 -20 0 -20 Q16 -20 16 -2 Q8 -12 -16 -2Z" fill="${hair}"/></g>`;
+const bg=(extra="")=>`<rect width="400" height="250" fill="var(--cc)"/>
+  <circle cx="340" cy="40" r="90" fill="${W}" opacity=".12"/><circle cx="40" cy="230" r="70" fill="${W}" opacity=".1"/>${extra}`;
+const floor=`<rect y="200" width="400" height="50" fill="${INK}" opacity=".12"/>`;
+const ART={
+  laptop:()=>bg()+floor+`
+    <rect x="70" y="184" width="270" height="12" rx="4" fill="${W}" opacity=".9"/>
+    <rect x="120" y="70" width="170" height="110" rx="10" fill="${INK}"/>
+    <rect x="130" y="80" width="150" height="90" rx="4" fill="#1F2E48"/>
+    <rect x="142" y="94" width="50" height="7" rx="3" fill="${GOLD}"/><rect x="198" y="94" width="40" height="7" rx="3" fill="#7FB2FF"/>
+    <rect x="152" y="110" width="70" height="7" rx="3" fill="#8DE0B5"/><rect x="152" y="126" width="44" height="7" rx="3" fill="#FF9F7A"/><rect x="202" y="126" width="56" height="7" rx="3" fill="#7FB2FF"/>
+    <rect x="142" y="142" width="64" height="7" rx="3" fill="${GOLD}"/><rect x="142" y="156" width="30" height="7" rx="3" fill="#C9B2FF"/>
+    <path d="M100 180 H310 L322 192 H88 Z" fill="${W}"/>
+    <rect x="320" y="150" width="26" height="34" rx="5" fill="${W}"/><path d="M346 158 q12 0 12 10 q0 10 -12 10" stroke="${W}" stroke-width="5" fill="none"/>
+    <rect x="50" y="160" width="30" height="26" rx="4" fill="${INK}" opacity=".8"/><ellipse cx="58" cy="148" rx="10" ry="20" fill="#2FA36B" transform="rotate(-20 58 148)"/><ellipse cx="72" cy="146" rx="9" ry="20" fill="#3CBF7E" transform="rotate(18 72 146)"/>`,
+  booths:()=>bg()+floor+`
+    <rect x="30" y="60" width="150" height="30" rx="6" fill="${W}"/><rect x="45" y="70" width="70" height="10" rx="5" fill="var(--cc)"/>
+    <rect x="220" y="60" width="150" height="30" rx="6" fill="${W}"/><rect x="235" y="70" width="90" height="10" rx="5" fill="${INK}" opacity=".7"/>
+    <rect x="40" y="90" width="8" height="70" fill="${W}" opacity=".7"/><rect x="162" y="90" width="8" height="70" fill="${W}" opacity=".7"/>
+    <rect x="230" y="90" width="8" height="70" fill="${W}" opacity=".7"/><rect x="352" y="90" width="8" height="70" fill="${W}" opacity=".7"/>
+    ${person(80,120,1,INK,SKIN,INK)}${person(290,118,1,"#2F7BEA",SKIN2,INK)}
+    <rect x="30" y="160" width="150" height="40" rx="6" fill="${W}"/><rect x="220" y="160" width="150" height="40" rx="6" fill="${W}"/>
+    ${person(140,150,1.15,RED,SKIN2,INK)}${person(250,152,1.1,"#1FA463",SKIN,"#5A3A22")}
+    <rect x="186" y="170" width="28" height="22" rx="4" fill="${INK}"/><rect x="194" y="164" width="12" height="8" rx="3" fill="none" stroke="${INK}" stroke-width="3"/>`,
+  bridge:()=>bg(`<circle cx="320" cy="70" r="26" fill="${GOLD}"/>`)+`
+    <rect y="190" width="400" height="60" fill="#2E86D6"/>
+    <path d="M0 200 q50 -8 100 0 t100 0 t100 0 t100 0" stroke="${W}" stroke-width="3" fill="none" opacity=".5"/>
+    <rect x="0" y="150" width="400" height="14" fill="${INK}"/>
+    <rect x="80" y="70" width="14" height="130" fill="${INK}"/><rect x="306" y="70" width="14" height="130" fill="${INK}"/>
+    <path d="M0 150 Q87 60 87 70 Q200 160 313 70 Q313 60 400 150" stroke="${W}" stroke-width="5" fill="none"/>
+    ${[110,140,170,200,230,260,290].map(x=>`<line x1="${x}" y1="${x<200?150-(x-87)*0.6+((x-87)*(x-87))/180:150-(313-x)*0.6+((313-x)*(313-x))/180}" x2="${x}" y2="150" stroke="${W}" stroke-width="3"/>`).join("")}
+    <rect x="170" y="128" width="40" height="22" rx="5" fill="${RED}"/><circle cx="178" cy="152" r="5" fill="${INK}"/><circle cx="202" cy="152" r="5" fill="${INK}"/>`,
+  stage:()=>bg()+`
+    <path d="M160 0 L240 0 L320 200 L80 200 Z" fill="${W}" opacity=".18"/>
+    <rect x="40" y="175" width="320" height="25" rx="4" fill="${INK}"/>
+    <rect x="250" y="70" width="100" height="70" rx="6" fill="${W}"/><path d="M262 125 L282 105 L298 115 L322 88 L338 98" stroke="var(--cc)" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <rect x="296" y="140" width="6" height="35" fill="${W}"/>
+    ${person(180,110,1.15,INK,SKIN,"#3B2618")}
+    <path d="M140 130 h70 l-8 45 h-54 Z" fill="${W}"/><rect x="160" y="140" width="30" height="6" rx="3" fill="var(--cc)"/>
+    <line x1="175" y1="130" x2="168" y2="104" stroke="${INK}" stroke-width="3"/><circle cx="167" cy="101" r="5" fill="${INK}"/>
+    ${[30,80,130,230,280,330,370].map((x,i)=>`<circle cx="${x}" cy="${222+(i%2)*6}" r="15" fill="${INK}" opacity=".55"/>`).join("")}`,
+  firstaid:()=>bg()+floor+`
+    <rect x="120" y="70" width="160" height="120" rx="18" fill="${W}"/><rect x="175" y="58" width="50" height="20" rx="8" fill="none" stroke="${W}" stroke-width="8"/>
+    <rect x="186" y="95" width="28" height="70" rx="5" fill="${RED}"/><rect x="165" y="116" width="70" height="28" rx="5" fill="${RED}"/>
+    <path d="M300 120 q20 -30 40 0 t40 0" stroke="${W}" stroke-width="5" fill="none" stroke-linecap="round" opacity=".9"/>
+    <path d="M20 120 h20 l10 -22 l14 44 l10 -22 h26" stroke="${W}" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="300" y="160" width="70" height="30" rx="15" fill="${W}" opacity=".85"/><rect x="330" y="160" width="10" height="30" fill="${RED}" opacity=".7"/>`,
+  food:()=>bg()+`
+    <path d="M0 40 Q100 80 200 40 T400 40" stroke="${W}" stroke-width="2" fill="none"/>
+    ${[30,80,130,180,230,280,330,375].map((x,i)=>{const y=40+Math.sin((x/400)*Math.PI*2)*-14+ (i%2?6:0);return `<path d="M${x-12} ${y} L${x+12} ${y} L${x} ${y+26} Z" fill="${[GOLD,RED,W,"#3CBF7E"][i%4]}"/>`}).join("")}
+    <rect x="20" y="170" width="360" height="22" rx="6" fill="${W}"/>
+    <path d="M50 140 h90 a45 32 0 0 1 -90 0Z" fill="${RED}"/><ellipse cx="95" cy="140" rx="45" ry="8" fill="${GOLD}"/>
+    <path d="M80 125 q-6 -14 0 -26 M96 122 q-6 -14 0 -26 M112 125 q-6 -14 0 -26" stroke="${W}" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>
+    <ellipse cx="200" cy="160" rx="55" ry="12" fill="${W}"/><circle cx="182" cy="150" r="13" fill="#E89A3C"/><circle cx="204" cy="146" r="13" fill="#C9672A"/><circle cx="224" cy="152" r="12" fill="#E89A3C"/>
+    <path d="M260 145 h90 a45 30 0 0 1 -90 0Z" fill="${INK}"/><ellipse cx="305" cy="145" rx="45" ry="8" fill="#8DE0B5"/>
+    <line x1="290" y1="140" x2="330" y2="100" stroke="${W}" stroke-width="4"/><line x1="300" y1="142" x2="344" y2="108" stroke="${W}" stroke-width="4"/>`,
+  lecture:()=>bg()+`
+    <rect x="40" y="40" width="230" height="140" rx="10" fill="${INK}"/>
+    <path d="M70 150 L110 110 L140 128 L190 75 L240 100" stroke="${GOLD}" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="190" cy="75" r="8" fill="${W}"/><rect x="70" y="58" width="80" height="8" rx="4" fill="${W}" opacity=".7"/>
+    <path d="M330 60 L300 120 h26 l-14 50 l46 -70 h-28 l18 -40 Z" fill="${GOLD}"/>
+    ${person(320,175,.9,W,SKIN2,INK)}
+    ${[40,95,150,205,260].map(x=>`<circle cx="${x}" cy="228" r="17" fill="${INK}" opacity=".55"/>`).join("")}`,
+  cv:()=>bg()+floor+`
+    <g transform="rotate(-6 200 125)"><rect x="135" y="35" width="130" height="170" rx="10" fill="${W}"/>
+    <circle cx="165" cy="72" r="16" fill="var(--cc)" opacity=".5"/><rect x="190" y="62" width="58" height="8" rx="4" fill="${INK}"/><rect x="190" y="76" width="40" height="6" rx="3" fill="${INK}" opacity=".4"/>
+    ${[105,120,135,155,170,185].map((y,i)=>`<rect x="152" y="${y}" width="${[96,80,90,70,96,60][i]}" height="6" rx="3" fill="${INK}" opacity="${i==3?.8:.25}"/>`).join("")}</g>
+    <g transform="rotate(30 300 150)"><rect x="285" y="70" width="16" height="110" rx="4" fill="${GOLD}"/><path d="M285 180 h16 l-8 18 Z" fill="${INK}"/></g>
+    <circle cx="85" cy="110" r="38" fill="${W}"/><path d="M68 110 l12 12 l24 -26" stroke="#1FA463" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`,
+  robot:()=>bg()+floor+`
+    <line x1="200" y1="45" x2="200" y2="70" stroke="${INK}" stroke-width="5"/><circle cx="200" cy="42" r="8" fill="${RED}"/>
+    <rect x="150" y="70" width="100" height="70" rx="16" fill="${W}"/><rect x="165" y="88" width="70" height="32" rx="12" fill="${INK}"/>
+    <circle cx="185" cy="104" r="7" fill="#7FE0FF"/><circle cx="215" cy="104" r="7" fill="#7FE0FF"/>
+    <rect x="160" y="145" width="80" height="50" rx="10" fill="${INK}"/><circle cx="200" cy="170" r="10" fill="${GOLD}"/>
+    <rect x="120" y="150" width="34" height="12" rx="6" fill="${W}"/><rect x="246" y="150" width="34" height="12" rx="6" fill="${W}"/>
+    <circle cx="118" cy="156" r="10" fill="${INK}"/><circle cx="282" cy="156" r="10" fill="${INK}"/>
+    <circle cx="175" cy="202" r="12" fill="${INK}"/><circle cx="225" cy="202" r="12" fill="${INK}"/>
+    <path d="M40 90 h40 v30 h30" stroke="${W}" stroke-width="4" fill="none" opacity=".6"/><circle cx="110" cy="120" r="5" fill="${W}"/>
+    <path d="M360 70 h-40 v40 h-30" stroke="${W}" stroke-width="4" fill="none" opacity=".6"/><circle cx="290" cy="110" r="5" fill="${W}"/>`,
+  heart:()=>bg()+`
+    <path d="M200 205 C120 150 90 115 90 85 C90 55 115 40 140 40 C165 40 185 55 200 75 C215 55 235 40 260 40 C285 40 310 55 310 85 C310 115 280 150 200 205 Z" fill="${W}"/>
+    <path d="M200 90 q-22 32 -22 48 a22 22 0 0 0 44 0 q0 -16 -22 -48Z" fill="${RED}"/>
+    <path d="M30 210 q30 -40 70 -30 l40 10" stroke="${W}" stroke-width="10" fill="none" stroke-linecap="round" opacity=".8"/>
+    <path d="M370 210 q-30 -40 -70 -30 l-40 10" stroke="${W}" stroke-width="10" fill="none" stroke-linecap="round" opacity=".8"/>
+    <rect x="320" y="40" width="10" height="34" rx="3" fill="${W}" opacity=".8"/><rect x="308" y="52" width="34" height="10" rx="3" fill="${W}" opacity=".8"/>`,
+  hack:()=>bg()+floor+`
+    <rect x="40" y="110" width="320" height="10" rx="4" fill="${W}" opacity=".9"/>
+    ${[[70,"#1F2E48"],[170,INK],[270,"#1F2E48"]].map(([x,c])=>`<rect x="${x}" y="70" width="70" height="40" rx="5" fill="${c}"/><rect x="${x+8}" y="80" width="30" height="5" rx="2" fill="${GOLD}"/><rect x="${x+8}" y="90" width="44" height="5" rx="2" fill="#8DE0B5"/>`).join("")}
+    ${person(105,150,1,RED,SKIN,INK)}${person(205,148,1,W,SKIN2,INK)}${person(305,150,1,INK,SKIN,"#5A3A22")}
+    <path d="M200 20 l6 14 l15 2 l-11 10 l3 15 l-13 -7 l-13 7 l3 -15 l-11 -10 l15 -2Z" fill="${GOLD}"/>`,
+  calm:()=>bg(`<circle cx="200" cy="105" r="70" fill="${W}" opacity=".18"/>`)+floor+`
+    <path d="M150 200 q50 -26 100 0" fill="${W}" opacity=".9"/>
+    <path d="M168 160 Q168 120 200 120 Q232 120 232 160 Z" fill="${W}"/>
+    <circle cx="200" cy="100" r="18" fill="${SKIN}"/><path d="M182 98 Q182 78 200 78 Q218 78 218 98 Q206 88 182 98Z" fill="${INK}"/>
+    <path d="M168 150 Q140 170 150 186 M232 150 Q260 170 250 186" stroke="${W}" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <rect x="40" y="150" width="70" height="12" rx="3" fill="${GOLD}"/><rect x="46" y="138" width="60" height="12" rx="3" fill="${RED}"/><rect x="40" y="126" width="66" height="12" rx="3" fill="${W}"/>
+    <path d="M320 100 a26 26 0 1 0 26 26 a20 20 0 0 1 -26 -26Z" fill="${W}"/>`,
+  games:()=>bg()+`
+    <rect x="60" y="180" width="280" height="20" rx="6" fill="${INK}" opacity=".3"/>
+    <g transform="rotate(-12 140 120)"><rect x="95" y="75" width="90" height="90" rx="18" fill="${W}"/>${[[115,95],[165,95],[140,120],[115,145],[165,145]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="8" fill="${INK}"/>`).join("")}</g>
+    <g transform="rotate(14 250 140)"><rect x="215" y="105" width="70" height="70" rx="14" fill="${RED}"/>${[[232,122],[268,158],[250,140]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="7" fill="${W}"/>`).join("")}</g>
+    <path d="M320 180 q0 -30 14 -46 a14 14 0 1 1 12 0 q14 16 14 46Z" fill="${GOLD}"/>
+    <g transform="rotate(-18 60 90)"><rect x="35" y="50" width="50" height="72" rx="8" fill="${W}"/><path d="M60 72 l10 14 l-10 14 l-10 -14Z" fill="${RED}"/></g>`
+};
+function media(e,cls=""){
+  return `<div class="media ${cls}" style="${colVars(e.col)}">
+    <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${ART[e.art]()}</svg>
+    ${e.photo?`<img src="${esc(e.photo)}" alt="" onerror="this.remove()">`:""}</div>`;
+}
+
+/* ---------------- Session log ---------------- */
 const KEY="lab06-log";
 let session=load()||{participant:1,start:Date.now(),log:[]};
 function load(){try{return JSON.parse(localStorage.getItem(KEY));}catch(e){return null;}}
@@ -286,10 +415,11 @@ function save(){try{localStorage.setItem(KEY,JSON.stringify(session));}catch(e){
 function log(type,detail){session.log.push({t:Date.now(),type,detail:detail||""});save();renderLog();}
 function stamp(t){const s=Math.round((t-session.start)/1000);return `${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;}
 
-/* List page */
+/* ---------------- List page ---------------- */
 let state={q:"",cat:"All",col:"All"};
 const $=id=>document.getElementById(id);
 $("legend").innerHTML=Object.values(COLLEGES).map(c=>`<span><i style="background:var(--${c.v})"></i>${c.name}</span>`).join("");
+$("collage").innerHTML=media(EVENTS[3],"m1")+media(EVENTS[5],"m2")+media(EVENTS[2],"m3");
 
 function matches(e,skip){
   const q=state.q.trim().toLowerCase();
@@ -316,8 +446,10 @@ function renderGrid(){
   $("grid").innerHTML=items.length?items.map(e=>{
     const d=parse(e.date);
     return `<li><button class="card" data-id="${e.id}" style="${colVars(e.col)}">
-      <span class="banner"><span class="collab">${COLLEGES[e.col].name}</span>
-        <span class="badge" aria-hidden="true"><span class="m">${MONTHS[d.getMonth()]}</span><span class="d">${d.getDate()}</span></span></span>
+      <span class="cwrap" style="display:block">${media(e)}
+        <span class="collab"><i></i>${COLLEGES[e.col].name}</span>
+        <span class="badge" aria-hidden="true"><span class="m">${MONTHS[d.getMonth()]}</span><span class="d">${d.getDate()}</span></span>
+      </span>
       <span class="cbody">
         <h3>${esc(e.title)}</h3>
         <span class="line">${I.clock(16)}${SHORT_D[d.getDay()]}, ${esc(e.time)}</span>
@@ -338,17 +470,20 @@ $("q").addEventListener("input",e=>{
 $("grid").addEventListener("click",e=>{const b=e.target.closest(".card");if(b)openEvent(b.dataset.id);});
 $("home").onclick=()=>{if(current)closeEvent();};
 
-/* Event page */
+/* ---------------- Event page ---------------- */
 let openedAt=0,current=null;
 function openEvent(id){
   current=EVENTS.find(e=>e.id===id);openedAt=Date.now();log("open",current.title);
   const e=current,c=COLLEGES[e.col];
   $("detailView").innerHTML=`
     <section class="ehero" style="${colVars(e.col)}"><div class="in pad">
-      <div class="crumb"><button id="back">Events</button><span>/</span><span>${esc(e.title)}</span></div>
-      <span class="pill">${c.name}</span><span class="pill" style="color:var(--ink)">${e.cat}</span>
-      <h1>${esc(e.title)}</h1>
-      <p>Organised by ${esc(e.org)}</p>
+      <div class="crumb"><button id="back"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>All events</button></div>
+      <div>
+        <span class="pill"><i></i>${c.name}</span><span class="pill" style="color:var(--ink)">${e.cat}</span>
+        <h1>${esc(e.title)}</h1>
+        <p>Organised by ${esc(e.org)}</p>
+      </div>
+      ${media(e)}
     </div></section>
     <div class="elayout pad">
       <div>
@@ -393,7 +528,7 @@ function closeEvent(){
   current=null;$("detailView").classList.add("hide");$("listView").classList.remove("hide");window.scrollTo(0,0);
 }
 
-/* Facilitator panel (press L or tap the faint dot, bottom right) */
+/* ---------------- Facilitator panel (press L or tap the faint dot) ---------------- */
 function renderLog(){
   const L=session.log,n=t=>L.filter(x=>x.type.startsWith(t)).length;
   $("sum").textContent=`Participant ${session.participant}: ${n("open")} events opened, ${n("search")} searches, ${n("filter")} filter taps, ${n("decision")} decisions, ${n("missing")} "need more info" notes.`;
