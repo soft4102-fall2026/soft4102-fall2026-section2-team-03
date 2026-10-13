@@ -2,6 +2,6 @@
 Team Members: 
   Dania Aljaja Mawada Ghalab Salma Abouzeid Aly Abouzeid
 Current status: Initial exploration: 
-  Evenets manager
+  Events manager
 Current initial direction:
-  We have decided to investigate the events manager problem because it solves a problem       most students including ourselves have personally faced by missing events we were           interested in.
+  We have decided to investigate the events manager problem because it solves a problem most students including ourselves have personally faced by missing events we were interested in.
