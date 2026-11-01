@@ -125,6 +125,78 @@ window.CE_EVENTS = [
    purpose:"Faculty share how they use AI tools in assessment design and what policies they follow.",
    acts:["Three 10-minute case studies","Open discussion"],
    source:"",sourceLabel:"",added:"2026-11-01"}
+  ,{id:"s11",sample:true,art:"hack",title:"24-Hour Hackathon: Smart Campus",col:"IT",cat:"Competition",org:"Innovation Hub",
+   audience:["student"],capacity:80,benefits:["Prizes for top 3 teams","Food provided","Participation certificate"],
+   date:"2026-11-19",time:"9:00 am (Thu) – 9:00 am (Fri)",loc:"Building 5, Innovation Lab",
+   purpose:"Teams of 3–5 build a working prototype that improves life on campus, judged by faculty and industry mentors.",
+   acts:["Opening briefing and team matching","24 hours of building with mentor check-ins","Final demos and awards"],
+   source:"",sourceLabel:"",added:"2026-11-01"}
+  ,{id:"s12",sample:true,art:"robot",title:"Robotics Club Open Day",col:"ENG",cat:"Social",org:"Robotics Club",
+   capacity:50,benefits:["Try the robots yourself"],
+   date:"2026-11-04",time:"4:00 – 6:00 pm",loc:"Mechatronics Lab, Building 6",
+   purpose:"See what the robotics team is building this year and find out how to join.",
+   acts:["Robot demos","Drive a competition robot","Meet the team"],
+   source:"",sourceLabel:"",added:"2026-11-01"}
+  ,{id:"s13",sample:true,art:"cv",title:"CV Clinic for Business Students",col:"BUS",cat:"Career",org:"College of Business",
+   audience:["student"],capacity:20,benefits:["One-to-one feedback","CV template"],
+   date:"2026-11-05",time:"2:00 – 4:00 pm",loc:"Building 3, Room 2.05",
+   purpose:"Get 15 minutes of one-to-one feedback on your CV before the career fair.",
+   acts:["Individual CV reviews","LinkedIn profile tips"],
+   source:"",sourceLabel:"",added:"2026-11-01",orgRegistration:"Book a 15-minute slot with the College of Business office."}
+  ,{id:"s14",sample:true,art:"games",title:"Board Games Night",col:"OTH",cat:"Social",org:"Student Council",
+   audience:["student"],capacity:60,benefits:["Snacks provided"],
+   date:"2026-11-06",time:"7:00 – 10:00 pm",loc:"Student Lounge, Building 4",
+   purpose:"Unwind mid-semester and meet students from other programmes.",
+   acts:["Board and card games","Mini tournaments"],
+   source:"",sourceLabel:"",added:"2026-11-01"}
+  ,{id:"s15",sample:true,art:"lecture",title:"Hackathon Info Session",col:"IT",cat:"Talk",org:"Innovation Hub",
+   audience:["student"],capacity:100,benefits:["Team matching"],
+   date:"2026-11-09",time:"12:30 – 1:15 pm",loc:"Building 5, Room 0.10",
+   purpose:"Find out how the Smart Campus hackathon works and how to form a team.",
+   acts:["Themes and rules","Meet past winners","Team matching"],
+   source:"",sourceLabel:"",added:"2026-11-01"}
+  ,{id:"s16",sample:true,art:"heart",title:"Beach Clean-Up Volunteering Day",col:"OTH",cat:"Volunteering",org:"Community Service Club",
+   capacity:40,benefits:["Volunteer hours","Transport provided","Participation certificate"],
+   date:"2026-11-14",time:"7:00 – 11:00 am",loc:"Meet at Main Gate (bus to the beach)",
+   purpose:"Join a morning clean-up of a local beach with the Community Service Club.",
+   acts:["Safety briefing","Clean-up in small groups","Breakfast afterwards"],
+   source:"",sourceLabel:"",added:"2026-11-01"}
+  ,{id:"s17",sample:true,art:"firstaid",title:"Nursing Skills Showcase",col:"HLTH",cat:"Workshop",org:"Nursing Students Association",
+   capacity:45,benefits:["Hands-on practice"],
+   date:"2026-11-18",time:"1:00 – 3:00 pm",loc:"Simulation Lab, Building 7",
+   purpose:"Nursing students demonstrate clinical skills and visitors can try basic techniques on manikins.",
+   acts:["Skill stations","Taking blood pressure","Q&A with nursing students"],
+   source:"",sourceLabel:"",added:"2026-11-01"}
+  ,{id:"s18",sample:true,art:"stage",title:"Public Speaking Bootcamp",col:"OTH",cat:"Workshop",org:"Toastmasters Club",
+   audience:["student","staff"],capacity:30,benefits:["Participation certificate","Feedback on a short speech"],
+   date:"2026-11-20",time:"3:00 – 5:00 pm",loc:"Building 2, Room 1.12",
+   purpose:"Practise short speeches and get structured feedback in a friendly group.",
+   acts:["Warm-up games","Two-minute impromptu speeches","Peer feedback"],
+   source:"",sourceLabel:"",added:"2026-11-01"}
+  ,{id:"s19",sample:true,art:"booths",title:"Engineering Internship Fair",col:"ENG",cat:"Career",org:"College of Engineering",
+   audience:["student"],capacity:250,benefits:["Meet employers","Internship offers"],
+   date:"2026-11-24",time:"10:00 am – 1:00 pm",loc:"Engineering Atrium, Building 6",
+   purpose:"Engineering companies meet students looking for summer internships.",
+   acts:["Company booths","Short company talks","On-the-spot interviews with some employers"],
+   source:"",sourceLabel:"",added:"2026-11-01",orgRegistration:"Upload your CV on the college's internship form before the fair."}
+  ,{id:"s20",sample:true,art:"food",title:"Qatar National Day Celebration",col:"OTH",cat:"Cultural",org:"Student Affairs",
+   benefits:["Food provided","Traditional performances"],
+   date:"2026-12-10",time:"11:00 am – 3:00 pm",loc:"Central Courtyard",
+   purpose:"Celebrate Qatar National Day with traditional food, music, crafts and performances.",
+   acts:["Ardha performance","Traditional crafts and henna","Heritage photo corner"],
+   source:"",sourceLabel:"",added:"2026-11-01"}
+  ,{id:"s21",sample:true,art:"laptop",title:"Research Methods for New Faculty",col:"OTH",cat:"Workshop",org:"Research Office",
+   audience:["faculty"],capacity:25,benefits:["Professional development hours"],
+   date:"2026-11-16",time:"10:00 – 11:30 am",loc:"Building 1, Room 1.20",
+   purpose:"An introduction to internal research grants, ethics approval and finding collaborators.",
+   acts:["Grant process overview","Ethics approval walkthrough","Networking"],
+   source:"",sourceLabel:"",added:"2026-11-01"}
+  ,{id:"s22",sample:true,art:"calm",title:"Staff Wellbeing Morning",col:"OTH",cat:"Social",org:"Human Resources",
+   audience:["faculty","staff"],capacity:40,benefits:["Breakfast provided"],
+   date:"2026-11-12",time:"8:00 – 9:30 am",loc:"Staff Lounge, Building 1",
+   purpose:"A relaxed breakfast with short wellbeing activities for faculty and staff.",
+   acts:["Breakfast","Stretching session","Wellbeing resources"],
+   source:"",sourceLabel:"",added:"2026-11-01"}
 ];
 
 
@@ -763,10 +835,11 @@ const ART={
   function renderFilters(base){
     const cc=k=>base.filter(e=>matches(e,"col")&&(k==="All"||e.col===k)).length;
     const tc=k=>base.filter(e=>matches(e,"cat")&&(k==="All"||e.cat===k)).length;
-    $("colList").innerHTML=`<li><button class="fbtn" data-col="All" aria-pressed="${state.col==="All"}">All colleges<span class="n">${cc("All")}</span></button></li>`+
-      Object.entries(COLLEGES).map(([k,c])=>`<li><button class="fbtn" data-col="${k}" aria-pressed="${state.col===k}"><i style="background:var(--${c.v})"></i>${c.name}<span class="n">${cc(k)}</span></button></li>`).join("");
-    $("catList").innerHTML=`<li><button class="fbtn" data-cat="All" aria-pressed="${state.cat==="All"}">All types<span class="n">${tc("All")}</span></button></li>`+
-      CATS.map(c=>`<li><button class="fbtn" data-cat="${c}" aria-pressed="${state.cat===c}">${c}<span class="n">${tc(c)}</span></button></li>`).join("");
+    const opt=(v,label,n,sel)=>`<option value="${v}"${sel?" selected":""}>${label} (${n})</option>`;
+    $("colSel").innerHTML=opt("All","All colleges",cc("All"),state.col==="All")+
+      Object.entries(COLLEGES).map(([k,c])=>opt(k,c.name,cc(k),state.col===k)).join("");
+    $("catSel").innerHTML=opt("All","All types",tc("All"),state.cat==="All")+
+      CATS.map(c=>opt(c,c,tc(c),state.cat===c)).join("");
     $("clear").classList.toggle("hide",state.col==="All"&&state.cat==="All"&&!state.q.trim());
   }
   function renderDiscover(){
@@ -784,8 +857,8 @@ const ART={
     $("grid").innerHTML=items.length?items.map(card).join(""):`<li class="empty">${base.length?"No events match your search. Try another word or clear the filters.":"No upcoming events are listed right now."}</li>`;
     renderFilters(base);
   }
-  $("colList").addEventListener("click",e=>{const b=e.target.closest(".fbtn");if(!b)return;state.col=b.dataset.col;renderDiscover();T.track("filter","college:"+state.col);});
-  $("catList").addEventListener("click",e=>{const b=e.target.closest(".fbtn");if(!b)return;state.cat=b.dataset.cat;renderDiscover();T.track("filter","type:"+state.cat);});
+  $("colSel").addEventListener("change",e=>{state.col=e.target.value;renderDiscover();T.track("filter","college:"+state.col);});
+  $("catSel").addEventListener("change",e=>{state.cat=e.target.value;renderDiscover();T.track("filter","type:"+state.cat);});
   $("clear").onclick=()=>{state.q="";state.cat="All";state.col="All";$("q").value="";renderDiscover();T.track("filter","cleared");};
   document.querySelectorAll(".seg").forEach(b=>b.onclick=()=>{state.sort=b.dataset.sort;renderDiscover();T.track("filter","sort:"+state.sort);});
   $("allAud").onchange=e=>{state.allAud=e.target.checked;renderDiscover();T.track("filter","allAudiences:"+state.allAud);};

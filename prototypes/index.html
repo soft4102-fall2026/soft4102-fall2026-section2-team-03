@@ -54,11 +54,12 @@
       </div>
     </header>
     <div class="layout pad">
-      <aside class="side" aria-label="Filters">
-        <h3>College</h3><ul class="fl" id="colList"></ul>
-        <h3>Event type</h3><ul class="fl" id="catList"></ul>
+      <div class="filterbar" role="group" aria-label="Filters">
+        <span class="fb-label">Filter by</span>
+        <label class="fsel"><span class="sr">College</span><select id="colSel" aria-label="Filter by college"></select></label>
+        <label class="fsel"><span class="sr">Event type</span><select id="catSel" aria-label="Filter by event type"></select></label>
         <label class="allaud"><input type="checkbox" id="allAud"> <span id="allAudTxt">Show events for all audiences</span></label>
-      </aside>
+      </div>
       <section>
         <div class="reshead"><h2 id="resTitle">For you</h2><span><span id="count"></span> <button class="clear hide" id="clear">Clear filters</button></span></div>
         <p class="hint hide" id="interestHint">Pick your interests in <button class="linkbtn" data-go="profile">Profile</button> to put the events you care about first.</p>
