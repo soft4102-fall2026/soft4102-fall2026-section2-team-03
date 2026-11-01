@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Pre-flight checks – Campus Events (Team 03)</title>
+<style>
+body{font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#152238;max-width:900px;margin:0 auto;padding:24px}
+h1{font-size:26px;margin:0 0 4px} h2{font-size:19px;margin:28px 0 8px}
+p.lead{color:#5F6B7E;margin:0 0 16px}
+.verdict{padding:14px 18px;border-radius:14px;font-weight:700;font-size:17px}
+.go{background:#E2F6EC;color:#11683E}.stop{background:#FDE7E5;color:#B3261E}
+ul{list-style:none;padding:0;margin:0} li{padding:6px 0;border-bottom:1px solid #E3E8F0}
+.p::before{content:"✔ ";color:#1FA463;font-weight:700}.f::before{content:"✘ ";color:#B3261E;font-weight:700}.w::before{content:"! ";color:#B07D00;font-weight:700}
+small{color:#5F6B7E;display:block}
+code{background:#F5F7FB;padding:1px 6px;border-radius:6px}
+</style>
+</head>
+<body>
+<h1>Pre-flight checks</h1>
+<p class="lead">Open this page after every change and before Day 1 (Sun 8 Nov). Lab 08 rule: we don't start until tracking works.</p>
+<div id="verdict" class="verdict">Running…</div>
+
+<h2>1 · Counting rules (automated tests)</h2>
+<ul id="unit"></ul>
+<h2>2 · Setup and event data</h2>
+<ul id="pre"></ul>
+<h2>3 · Visit log connection</h2>
+<ul id="net"></ul>
+<h2>4 · Manual checks (tick off in docs/lab08/protocol.md)</h2>
+<ul>
+  <li class="w">Open the site with <code>?p=T01</code> on phone A and <code>?p=T02</code> on phone B. Both rows appear in the Sheet with today's Qatar date.</li>
+  <li class="w">Reload 3 times with T01. After export, <code>analysis.html</code> shows T01 as test data and the duplicates as removed.</li>
+  <li class="w">Open the site with no code, in a private window. The row has an empty code and shows up under "no-code visits".</li>
+  <li class="w">Open the site with a code, close it, then reopen it from a bookmark with no <code>?p=</code>. The row has <code>code_source = stored</code>.</li>
+  <li class="w">Turn on airplane mode, open the site, then turn it off and reload. The queued row arrives.</li>
+  <li class="w">Every "Official announcement" link opens the right original post.</li>
+  <li class="w">Register for an event with <code>?p=T01</code>. "My events" shows it and the seat count goes down by 1 right away. Cancel it and the count goes back. (Test codes are never added to the public count.)</li>
+  <li class="w">Switch Profile to Faculty. Student-only events disappear unless you tick "Also show events not open to faculty".</li>
+</ul>
+
+<script src="app.js"></script>
+<script>
+/* automated tests of the counting rules */
+/* Automated checks of the Lab 07/08 counting rules.
+   Runs in Node (npm test) and in the browser (tests.html). */
+(function (root, factory) {
+  if (typeof module === "object" && module.exports) module.exports = factory;
+  else root.CESpec = factory;
+})(typeof self !== "undefined" ? self : this, function (M) {
+  const cfg = {
+    PILOT_START: "2026-11-08", PILOT_DAYS: 10, RETURN_FROM_DAY: 3,
+    PARTICIPANTS: ["S01","S02","S03","S04","S05","S06","S07","F01","F02","F03"],
+    TEST_CODES: ["T01","T02","T03","T04"]
+  };
+  const day = n => { const d = new Date(Date.UTC(2026, 10, 7 + n)); return d.toISOString().slice(0, 10); };
+  const v = (code, n, extra) => Object.assign({ code, type: "visit", qatar_date: day(n), device: "d-" + code }, extra || {});
+  const returners = codes => codes.flatMap(c => [v(c, 4), v(c, 7)]);
+  const tests = [];
+  const t = (name, fn) => tests.push({ name, fn });
+  const eq = (a, b, msg) => { if (JSON.stringify(a) !== JSON.stringify(b)) throw new Error(`${msg || ""} expected ${JSON.stringify(b)}, got ${JSON.stringify(a)}`); };
+
+  t("Day 1 is Sun 8 Nov 2026 and Day 10 is Tue 17 Nov", () => {
+    eq(M.dayNumber("2026-11-08", cfg.PILOT_START), 1);
+    eq(M.dayNumber("2026-11-17", cfg.PILOT_START), 10);
+    eq(new Date(Date.UTC(2026, 10, 8)).getUTCDay(), 0, "8 Nov is a Sunday:");
+  });
+  t("Qatar day: 11:30 pm Qatar (20:30 UTC) stays on the same day", () =>
+    eq(M.qatarDate("2026-11-09T20:30:00Z"), "2026-11-09"));
+  t("Qatar day: 00:30 am Qatar (21:30 UTC previous day) moves to the next day", () =>
+    eq(M.qatarDate("2026-11-09T21:30:00Z"), "2026-11-10"));
+  t("Row date uses server time when qatar_date is missing", () =>
+    eq(M.rowDate({ server_ts: "2026-11-09T21:30:00Z" }), "2026-11-10"));
+  t("Codes: lower case is accepted, junk is rejected", () => {
+    eq(M.normalizeCode(" s07 "), "S07"); eq(M.normalizeCode("abc"), ""); eq(M.normalizeCode("S7"), ""); eq(M.normalizeCode(null), "");
+  });
+  t("Reloads on the same day count as one visit", () => {
+    const r = M.analyzeVisits([v("S01", 3), v("S01", 3), v("S01", 3)], cfg);
+    eq(r.participants[0].days, [3]); eq(r.duplicatesRemoved, 2);
+  });
+  t("Two devices, same code, same day = one visit", () => {
+    const r = M.analyzeVisits([v("S01", 5, { device: "phone" }), v("S01", 5, { device: "laptop" })], cfg);
+    eq(r.participants[0].returnDays, [5]);
+  });
+  t("Days 1–2 do not count as returns", () => {
+    const r = M.analyzeVisits([v("S01", 1), v("S01", 2), v("S01", 3)], cfg);
+    eq(r.participants[0].returnDays, [3]); eq(r.participants[0].status, "did not return");
+  });
+  t("2 separate return days in days 3–10 = returned", () => {
+    const r = M.analyzeVisits([v("S01", 3), v("S01", 10)], cfg);
+    eq(r.participants[0].status, "returned");
+  });
+  t("Visits after Day 10 or before Day 1 are outside the window", () => {
+    const r = M.analyzeVisits([v("S01", 11), v("S01", 12), v("S01", 0)], cfg);
+    eq(r.participants[0].days, []); eq(r.outsideWindow, 3);
+  });
+  t("Test codes T01–T04 never count", () => {
+    const r = M.analyzeVisits(["T01","T02","T03","T04"].flatMap(c => [v(c, 4), v(c, 6)]), cfg);
+    eq(r.returners, 0); eq(r.testRows, 8);
+  });
+  t("No-code visits are counted separately, once per device per day", () => {
+    const r = M.analyzeVisits([v("", 4, { device: "a" }), v("", 4, { device: "a" }), v("", 4, { device: "b" }), v("XYZ", 5, { device: "a" })], cfg);
+    eq(r.noCodeVisits, 3); eq(r.returners, 0);
+  });
+  t("Only 'visit' rows count (event_open, search… are ignored for the metric)", () => {
+    const r = M.analyzeVisits([v("S01", 4, { type: "event_open" }), v("S01", 6, { type: "search" })], cfg);
+    eq(r.participants[0].days, []);
+  });
+  t("Codes not on the participant list are reported, not counted", () => {
+    const r = M.analyzeVisits([v("S09", 4), v("S09", 6)], cfg);
+    eq(r.unknownCodes, { S09: 2 }, "visit-days:"); eq(r.returners, 0);
+  });
+  t("6 of 10 returned → SUCCESS", () =>
+    eq(M.analyzeVisits(returners(["S01","S02","S03","S04","S05","F01"]), cfg).decision.verdict, "SUCCESS"));
+  t("5 of 10 returned → INCONCLUSIVE", () =>
+    eq(M.analyzeVisits(returners(["S01","S02","S03","S04","S05"]), cfg).decision.verdict, "INCONCLUSIVE"));
+  t("4 of 10 returned → INCONCLUSIVE", () =>
+    eq(M.analyzeVisits(returners(["S01","S02","S03","F01"]), cfg).decision.verdict, "INCONCLUSIVE"));
+  t("3 of 10 returned → FAILURE", () =>
+    eq(M.analyzeVisits(returners(["S01","S02","S03"]), cfg).decision.verdict, "FAILURE"));
+  t("0 of 10 returned → FAILURE (never returning ≠ drop-out)", () => {
+    const r = M.analyzeVisits([v("S01", 1)], cfg);
+    eq(r.finishers, 10); eq(r.decision.verdict, "FAILURE");
+  });
+  t("3 withdrawals → only 7 finish → INCONCLUSIVE even if all 7 returned", () => {
+    const r = M.analyzeVisits(returners(["S01","S02","S03","S04","S05","S06","S07"]), cfg, { withdrawn: ["F01","F02","F03"] });
+    eq(r.finishers, 7); eq(r.decision.verdict, "INCONCLUSIVE");
+  });
+  t("Tracking failed → INCONCLUSIVE regardless of numbers", () =>
+    eq(M.analyzeVisits(returners(cfg.PARTICIPANTS), cfg, { trackingFailed: true }).decision.verdict, "INCONCLUSIVE"));
+  t("Tracking check flags pilot days with no daily test visit", () => {
+    const rows = [1,2,3,5].map(n => v("T03", n));
+    const r = M.analyzeVisits(rows, cfg, { today: day(6) });   // days 1–5 completed
+    eq(r.trackingGaps, [4]);
+  });
+  t("CSV parser handles quotes, commas and a BOM", () => {
+    const rows = M.parseCSV('﻿code,detail\r\nS01,"search: food, music → 2"\r\nS02,"say ""hi"""\r\n');
+    eq(rows.length, 2); eq(rows[0].detail, "search: food, music → 2"); eq(rows[1].detail, 'say "hi"');
+  });
+  t("Exit answers map to fixed source categories", () => {
+    eq(M.classifySource("It was in my Outlook inbox"), "Outlook / email");
+    eq(M.classifySource("saw it on the club insta"), "Instagram / social media");
+    eq(M.classifySource("a friend told me"), "Friends / classmates");
+    eq(M.classifySource("on your website"), "Campus Events (our site)");
+    eq(M.classifySource("Navigate360 calendar"), "Navigate360");
+    eq(M.classifySource("no idea"), "Other / unclear");
+  });
+
+  /* ---- feedback features: capacity, personalization, audience ---- */
+  const r = (code, type, ev, device) => ({ code, type, detail: ev, device: device || "d" });
+  t("Registrations: one per person, last action wins, cancel removes", () => {
+    const c = M.rsvpCounts([r("S01","rsvp","e1"), r("S01","rsvp","e1"), r("S02","rsvp","e1"), r("S02","rsvp_cancel","e1"), r("S03","rsvp","e2")], cfg);
+    eq(c, { e1: 1, e2: 1 });
+  });
+  t("Registrations: test codes excluded, no-code counted per device", () => {
+    const c = M.rsvpCounts([r("T01","rsvp","e1"), r("","rsvp","e1","phoneA"), r("","rsvp","e1","phoneA"), r("","rsvp","e1","phoneB")], cfg);
+    eq(c, { e1: 2 });
+  });
+  t("Seats: capacity − (organiser count + Campus Events registrations)", () => {
+    eq(M.seatInfo({ capacity: 40, registeredElsewhere: 25 }, 3), { going: 28, capacity: 40, left: 12, full: false });
+    eq(M.seatInfo({ capacity: 10 }, 12).full, true);
+    eq(M.seatInfo({}, 4), { going: 4, capacity: null, left: null, full: false });
+  });
+  const E = [
+    { id: "a", title: "A", cat: "Social", col: "OTH", date: "2026-11-09" },
+    { id: "b", title: "B", cat: "Career", col: "BUS", date: "2026-11-12" },
+    { id: "c", title: "C", cat: "Workshop", col: "IT", date: "2026-11-10" },
+    { id: "d", title: "D", cat: "Career", col: "IT", date: "2026-11-15" }
+  ];
+  t("Soonest first when no interests are set", () =>
+    eq(M.rankEvents(E, {}).map(e => e.id), ["a","c","b","d"]));
+  t("For you: interest matches first, each group soonest first", () =>
+    eq(M.rankEvents(E, { interests: ["Career"] }).map(e => e.id), ["b","d","a","c"]));
+  t("For you: college matches count as interests too", () =>
+    eq(M.rankEvents(E, { interests: ["Career"], colleges: ["IT"] }).map(e => e.id), ["c","b","d","a"]));
+  t("Soonest mode ignores interests", () =>
+    eq(M.rankEvents(E, { interests: ["Career"] }, "soonest").map(e => e.id), ["a","c","b","d"]));
+  t("Audience: events without an audience are open to everyone", () => {
+    eq(M.openTo({ audience: ["student"] }, "faculty"), false);
+    eq(M.openTo({ audience: ["student","faculty"] }, "faculty"), true);
+    eq(M.openTo({}, "staff"), true);
+  });
+
+  return function run(report) {
+    let pass = 0, fail = 0;
+    for (const x of tests) {
+      try { x.fn(); pass++; report(true, x.name); }
+      catch (e) { fail++; report(false, x.name, e.message); }
+    }
+    return { pass, fail, total: tests.length };
+  };
+});
+
+</script>
+<script>
+(async function(){
+  const cfg=window.CE_CONFIG, M=window.CEMetrics, EV=window.CE_EVENTS||[];
+  let fails=0;
+  const add=(id,cls,text,note)=>{const li=document.createElement("li");li.className=cls;li.textContent=text;if(note){const s=document.createElement("small");s.textContent=note;li.appendChild(s);}document.getElementById(id).appendChild(li);if(cls==="f")fails++;};
+
+  // 1. unit tests
+  const res=CESpec(M)((ok,name,err)=>add("unit",ok?"p":"f",name,err));
+  add("unit",res.fail?"f":"p",`${res.pass}/${res.total} tests passed`);
+
+  // 2. pre-flight
+  const chk=(ok,text,note,warnOnly)=>add("pre",ok?"p":(warnOnly?"w":"f"),text,ok?"":note);
+  chk(/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(cfg.LOG_URL||""),"LOG_URL is set to an Apps Script /exec URL","Edit the SETTINGS at the top of app.js. Until this is set, visits are not recorded.");
+  const P=cfg.PARTICIPANTS||[], TC=cfg.TEST_CODES||[];
+  chk(P.length===10&&new Set(P).size===10&&P.every(c=>M.normalizeCode(c)===c),"10 unique participant codes","Lab 08 plans exactly 10 participants.");
+  chk(P.filter(c=>c[0]==="S").length===7&&P.filter(c=>c[0]==="F").length===3,"7 students (S) + 3 faculty (F)","Matches the Lab 08 sample plan.",true);
+  chk(!P.some(c=>TC.includes(c)||c[0]==="T"),"No overlap between participant and test codes","");
+  chk(M.dayNumber("2026-11-17",cfg.PILOT_START)===cfg.PILOT_DAYS&&cfg.RETURN_FROM_DAY===3,"Window: Day 1 = "+cfg.PILOT_START+", 10 days, returns counted on days 3–10","The window was fixed in Lab 08. Don't change it after data arrives.");
+  const ids=EV.map(e=>e.id);
+  chk(new Set(ids).size===ids.length,"Event IDs are unique","Duplicate IDs: "+ids.filter((x,i)=>ids.indexOf(x)!==i).join(", "));
+  const sample=EV.filter(e=>e.sample);
+  chk(!sample.length,"No sample events left",`${sample.length} sample event(s) still in the EVENTS part of app.js. Replace them with real UDST events.`);
+  const noSrc=EV.filter(e=>!/^https?:\/\//.test(e.source||""));
+  chk(!noSrc.length,"Every event links to its original announcement",`Missing source link: ${noSrc.map(e=>e.title).join("; ")}`);
+  const badDate=EV.filter(e=>!/^\d{4}-\d{2}-\d{2}$/.test(e.date||"")||(e.added&&!/^\d{4}-\d{2}-\d{2}$/.test(e.added)));
+  chk(!badDate.length,"Dates use YYYY-MM-DD","Fix: "+badDate.map(e=>e.title).join("; "));
+  const COLS=["IT","ENG","BUS","HLTH","OTH"],CATS=["Workshop","Talk","Career","Competition","Social","Cultural","Volunteering"];
+  const badCat=EV.filter(e=>!COLS.includes(e.col)||!CATS.includes(e.cat));
+  chk(!badCat.length,"Every event has a valid college and type","Fix: "+badCat.map(e=>`${e.title} (${e.col}/${e.cat})`).join("; "));
+  const miss=EV.filter(e=>!e.title||!e.time||!e.loc||!e.org||!e.purpose);
+  chk(!miss.length,"Title, time, location, organiser and purpose are filled in (the info students asked for in Lab 03)","Missing info: "+miss.map(e=>e.id).join(", "));
+  const badAud=EV.filter(e=>e.audience&&(!Array.isArray(e.audience)||e.audience.some(a=>!["student","faculty","staff"].includes(a))));
+  chk(!badAud.length,"Audience values are student / faculty / staff","Fix: "+badAud.map(e=>e.title).join("; "));
+  const badCap=EV.filter(e=>(e.capacity!=null&&!(Number.isInteger(e.capacity)&&e.capacity>0))||(e.registeredElsewhere!=null&&!(Number.isInteger(e.registeredElsewhere)&&e.registeredElsewhere>=0)));
+  chk(!badCap.length,"Seat numbers are whole numbers","Fix capacity / registeredElsewhere: "+badCap.map(e=>e.title).join("; "));
+  const noCap=EV.filter(e=>e.capacity==null);
+  chk(!noCap.length,"Every event has a seat limit (instructor feedback)",`No capacity given: ${noCap.map(e=>e.title).join("; ")}. Fine if the announcement really has no limit.`,true);
+  const badArt=EV.filter(e=>e.art&&!ART[e.art]);
+  chk(!badArt.length,"Illustration keys exist","Unknown art: "+badArt.map(e=>e.art).join(", "),true);
+  const day1=cfg.PILOT_START;
+  const live1=EV.filter(e=>e.date>=day1&&(!e.added||e.added<=day1)).length;
+  chk(live1>=6,`At least 6 upcoming events visible on Day 1 (now ${live1})`,"A near-empty list on Day 1 would make the test unfair to the idea.",true);
+
+  // 3. network
+  if(cfg.LOG_URL){
+    try{
+      const r=await fetch(cfg.LOG_URL+"?health=1");const j=await r.json();
+      add("net",j.ok?"p":"f",`Apps Script answered: ${j.rows} rows in Log, ${j.todayRows} today (${j.today} Qatar)`);
+    }catch(e){add("net","w","Couldn't read the health check from this page","Open "+cfg.LOG_URL+"?health=1 in a new tab. It should show {\"ok\":true…}. Then do the manual checks below.");}
+  } else add("net","f","No LOG_URL, so there's nothing to test yet","See apps-script/README.md");
+
+  const v=document.getElementById("verdict");
+  v.className="verdict "+(fails?"stop":"go");
+  v.textContent=fails?`NOT READY: ${fails} check(s) failing. Don't start Day 1.`:"READY: all automatic checks pass. Now do the manual checks in section 4.";
+})();
+</script>
+</body>
+</html>
