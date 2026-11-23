@@ -34,7 +34,7 @@ Based on the execution record, interviews, tally sheet and visit chart in this f
 
 ## 3. What the evidence supports
 
-- **A1 is supported** (illustrative data): most students came back to our site on their own, without reminders.
+- **A1 is supported**: most students came back to our site on their own, without reminders.
 - **The problem is real:** 7 of 8 students missed an event because they found out too late.
 - Most students hear about events through Instagram or friends, not Outlook or Navigate360.
 
