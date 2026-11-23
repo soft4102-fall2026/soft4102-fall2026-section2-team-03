@@ -1,21 +1,31 @@
 # Founder Decision (LM2)
 
-## Decision: INVESTIGATE FURTHER
+## Decision: PERSEVERE
+At LM2 (2 Nov, pilot Day 3 of 10) we chose Investigate Further because there was no return data yet. The pilot has now ended, so we compared the final result with the criteria we set before it started.
+## Final result
+
+| | Result |
+|---|---|
+| Students counted | 8 (S02–S09; S01 is the team's test code) |
+| Returned on their own on 2+ separate days (Days 3–10) | **6 of 8 (75%)**: S03, S04, S05, S06, S08, S09 |
+| Not counted as returning | S02 (no return visits); S07 (return visits came from the team's test device) |
+| Log covers | 1–10 Nov (Day 10 for S08–S09 was 11 Nov and is not in the log) |
+| Predefined success criterion (Lab 07) | ≥ 60% return on 2+ days |
+
+6 of 8 is above the 60% threshold, so the result meets the success criterion and we **persevere**.
 
 ## Justification
-- The pilot is on Day 3 of 10, so there is no return data to compare with our predefined criteria yet.
-- The interviews are mixed: 5 of 8 students look for events on their own, but mostly on Instagram, and only 2 of 8 use Navigate360's events section.
-- The problem itself is confirmed (7 of 8 missed events by finding out too late), but whether students would come back to **our** site is still untested.
-- That is not enough evidence to persevere or to pivot.
+- Students came back to the site on their own, with no reminders, on at least two separate days (supports A1).
+- The problem is still confirmed: 7 of 8 interviewees missed an event because they found out too late.
+- Participants used the filters, chose "soonest" and set their interests, so those stay in the product (see Lab 09).
 
-## Next steps
-1. Finish the pilot (Day 10 = 10 Nov), ask the exit question (around 11 Nov) and complete the tally. The criteria stay unchanged.
-2. Decide by about 12 Nov using the predefined criteria:
+## What this does not show
+- The data is partly illustrative (see the note above).
+- The sample is small (8) and mostly people we know, and no faculty took part.
+- It only shows students *return*. It does not yet show that one place stops them finding out too late (Lab 05, assumption 3).
+- Mock events were listed alongside real ones during the pilot.
 
-| Final result | Decision | Next action |
-|---|---|---|
-| ≥ 60% return on 2+ days | **Persevere** | Test A3: can we keep events collected and updated on time? |
-| ≤ 30% return on 2+ days | **Pivot** | Keep the platform, add a push channel. A weekly Instagram post or email roundup that links back to our event list. Then test whether that brings students back. |
-| 30–60%, or anyone drops out | **Investigate further** | Run a longer or larger test |
-
-3. Update this file with the final result and decision.
+## Next steps (Lab 09 → LM3)
+1. Build the first increment: event list (soonest first / "For you"), search and filters, event detail page.
+2. Replace mock events with real upcoming UDST events and link each to its source (tests A3: can we keep events collected and up to date?).
+3. Keep visit tracking on, to check returns again with real events.
