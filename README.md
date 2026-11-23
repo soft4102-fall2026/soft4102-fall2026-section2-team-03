@@ -112,9 +112,10 @@ docs/            lab reports (lab01–lab09) and LM2 evidence
 - Visit tracking to a Google Sheet, so we can keep checking whether students come back
 
 **Not done / known limitations**
+- **Most real events are from CCIT.** As students, we only receive CCIT emails, so events from the other colleges (CET, CoB, CHS) depend on what is posted on Navigate360 and Instagram. Until we find a better source, those colleges show labelled demo events.
 - **Events are added by hand** in `app.js`. There is no admin page, database or automatic import, and keeping events up to date (A3) is still our biggest risk.
 - **Demo events:** 6 events labelled "Demo" fill the Engineering, Business and Health Sciences filters until we add more real college events. They are clearly tagged and can be hidden with `?demo=0`.
-- **Some events have no public link** because they were only announced by email. The event page says where they were announced. <!-- TODO: update once Member 2 fills the source links -->
+- **Some events have no public link** because they were only announced by email. The event page says where they were announced. 
 - **Deferred on purpose (Lab 09):** registration and seat counts, login, and saved events.
 - **Dropped:** notifications and ratings.
 - The profile is stored only on one device and browser.
