@@ -19,7 +19,7 @@ code{background:#F5F7FB;padding:1px 6px;border-radius:6px}
 </head>
 <body>
 <h1>Pre-flight checks</h1>
-<p class="lead">Open this page after every change and before Day 1 (Sun 8 Nov). Lab 08 rule: we don't start until tracking works.</p>
+<p class="lead">Open this page after every change to <code>app.js</code>, and before the LM3 demo.</p>
 <div id="verdict" class="verdict">Running…</div>
 
 <h2>1 · Counting rules (automated tests)</h2>
@@ -36,7 +36,10 @@ code{background:#F5F7FB;padding:1px 6px;border-radius:6px}
   <li class="w">Open the site with a code, close it, then reopen it from a bookmark with no <code>?p=</code>. The row has <code>code_source = stored</code>.</li>
   <li class="w">Turn on airplane mode, open the site, then turn it off and reload. The queued row arrives.</li>
   <li class="w">Every "Official announcement" link opens the right original post.</li>
-  <li class="w">Register for an event with <code>?p=T01</code>. "My events" shows it and the seat count goes down by 1 right away. Cancel it and the count goes back. (Test codes are never added to the public count.)</li>
+  <li class="w">Registration is off for LM3 (<code>SHOW_REGISTRATION: false</code>): no "My events" tab, no seat counts, no Register button. Opening <code>#mine</code> goes to Discover.</li>
+  <li class="w">Search "career" shows both Career Fair days. Search "volunteer" shows only the two events with "volunteer" in the title. Search "zzz" shows "No events match your search".</li>
+  <li class="w">The ITU PP-26 volunteering card shows "Mon 16 Nov – Fri 27 Nov" and an "On now" tag until 27 Nov.</li>
+  <li class="w">6 events tagged "Demo" show by default (Engineering, Business, Health Sciences). <code>index.html?demo=0</code> hides them.</li>
   <li class="w">Switch Profile to Faculty. Student-only events disappear unless you tick "Also show events not open to faculty".</li>
 </ul>
 
@@ -182,6 +185,43 @@ code{background:#F5F7FB;padding:1px 6px;border-radius:6px}
     eq(M.openTo({}, "staff"), true);
   });
 
+  /* ---- Lab 09 / LM3: search, multi-day events ---- */
+  t("Search: empty search matches every event", () => {
+    eq(M.matchesQuery("Gala Dinner", ""), true); eq(M.matchesQuery("Gala Dinner", "   "), true);
+  });
+  t("Search: upper/lower case doesn't matter", () =>
+    eq(M.matchesQuery("UDST Career Fair 2026", "career FAIR"), true));
+  t("Search: every word must match, in any order", () => {
+    eq(M.matchesQuery("UDST Career Fair 2026 Tue 24 Nov", "nov career"), true);
+    eq(M.matchesQuery("UDST Career Fair 2026 Tue 24 Nov", "career dinner"), false);
+  });
+  t("Search: punctuation and accents are ignored", () => {
+    eq(M.matchesQuery("Volunteer at the UDST Pavilion – ITU PP-26", "itu pp26"), true);
+    eq(M.matchesQuery("Volunteer at the UDST Pavilion – ITU PP-26", "pp 26"), true);
+    eq(M.matchesQuery("Café talk", "cafe"), true);
+  });
+  t("Search looks at the title only (Lab 09 criterion)", () => {
+    const ev = { title: "Gala Dinner", org: "Student Affairs", purpose: "volunteers needed in Nov" };
+    eq(M.searchEvent(ev, "dinner"), true);
+    eq(M.searchEvent(ev, "volunteer"), false, "word only in the description:");
+    eq(M.searchEvent(ev, "student affairs"), false, "word only in the organiser:");
+  });
+  t("Search: no match gives false (the app then shows the empty message)", () =>
+    eq(M.matchesQuery("Gala Dinner", "zzz"), false));
+  const multi = { date: "2026-11-16", endDate: "2026-11-27", added: "2026-11-01" };
+  t("Multi-day event stays visible until its end date", () => {
+    eq(M.isUpcoming(multi, "2026-11-23"), true);
+    eq(M.isUpcoming(multi, "2026-11-27"), true);
+    eq(M.isUpcoming(multi, "2026-11-28"), false);
+    eq(M.isOn(multi, "2026-11-23"), true);
+  });
+  t("One-day event hides the day after", () => {
+    eq(M.isUpcoming({ date: "2026-11-24" }, "2026-11-24"), true);
+    eq(M.isUpcoming({ date: "2026-11-24" }, "2026-11-25"), false);
+  });
+  t("Event with a future 'added' date stays hidden until that day", () =>
+    eq(M.isUpcoming({ date: "2026-12-10", added: "2026-11-30" }, "2026-11-23"), false));
+
   return function run(report) {
     let pass = 0, fail = 0;
     for (const x of tests) {
@@ -215,10 +255,12 @@ code{background:#F5F7FB;padding:1px 6px;border-radius:6px}
   chk(new Set(ids).size===ids.length,"Event IDs are unique","Duplicate IDs: "+ids.filter((x,i)=>ids.indexOf(x)!==i).join(", "));
   const sample=EV.filter(e=>e.sample);
   chk(!sample.length,"No sample events left",`${sample.length} sample event(s) still in the EVENTS part of app.js. Replace them with real UDST events.`);
-  const noSrc=EV.filter(e=>!/^https?:\/\//.test(e.source||""));
-  chk(!noSrc.length,"Every event links to its original announcement",`Missing source link: ${noSrc.map(e=>e.title).join("; ")}`);
-  const badDate=EV.filter(e=>!/^\d{4}-\d{2}-\d{2}$/.test(e.date||"")||(e.added&&!/^\d{4}-\d{2}-\d{2}$/.test(e.added)));
-  chk(!badDate.length,"Dates use YYYY-MM-DD","Fix: "+badDate.map(e=>e.title).join("; "));
+  const hasLink=e=>/^https?:\/\//.test(e.source||""), emailOnly=e=>/no public link/i.test(e.sourceLabel||"");
+  const noSrc=EV.filter(e=>!hasLink(e)&&!emailOnly(e));
+  chk(!noSrc.length,"Every event links to its announcement (or says it was email-only)",`Missing Navigate360 / public link (Member 2): ${noSrc.map(e=>e.title).join("; ")}`);
+  chk(true,`${EV.filter(emailOnly).length} event(s) are email-only (no public link) and say so on the event page`,"");
+  const badDate=EV.filter(e=>!/^\d{4}-\d{2}-\d{2}$/.test(e.date||"")||(e.added&&!/^\d{4}-\d{2}-\d{2}$/.test(e.added))||(e.endDate&&(!/^\d{4}-\d{2}-\d{2}$/.test(e.endDate)||e.endDate<e.date)));
+  chk(!badDate.length,"Dates use YYYY-MM-DD (and endDate is not before date)","Fix: "+badDate.map(e=>e.title).join("; "));
   const COLS=["IT","ENG","BUS","HLTH","OTH"],CATS=["Workshop","Talk","Career","Competition","Social","Cultural","Volunteering"];
   const badCat=EV.filter(e=>!COLS.includes(e.col)||!CATS.includes(e.cat));
   chk(!badCat.length,"Every event has a valid college and type","Fix: "+badCat.map(e=>`${e.title} (${e.col}/${e.cat})`).join("; "));
@@ -229,12 +271,16 @@ code{background:#F5F7FB;padding:1px 6px;border-radius:6px}
   const badCap=EV.filter(e=>(e.capacity!=null&&!(Number.isInteger(e.capacity)&&e.capacity>0))||(e.registeredElsewhere!=null&&!(Number.isInteger(e.registeredElsewhere)&&e.registeredElsewhere>=0)));
   chk(!badCap.length,"Seat numbers are whole numbers","Fix capacity / registeredElsewhere: "+badCap.map(e=>e.title).join("; "));
   const noCap=EV.filter(e=>e.capacity==null);
-  chk(!noCap.length,"Every event has a seat limit (instructor feedback)",`No capacity given: ${noCap.map(e=>e.title).join("; ")}. Fine if the announcement really has no limit.`,true);
+  chk(cfg.SHOW_REGISTRATION===false,"Registration is hidden for LM3 (SHOW_REGISTRATION: false)","Lab 09 scope: registration is deferred. Set SHOW_REGISTRATION: false in app.js.");
+  if(cfg.SHOW_REGISTRATION!==false) chk(!noCap.length,"Every event has a seat limit (instructor feedback)",`No capacity given: ${noCap.map(e=>e.title).join("; ")}. Fine if the announcement really has no limit.`,true);
   const badArt=EV.filter(e=>e.art&&!ART[e.art]);
   chk(!badArt.length,"Illustration keys exist","Unknown art: "+badArt.map(e=>e.art).join(", "),true);
-  const day1=cfg.PILOT_START;
-  const live1=EV.filter(e=>e.date>=day1&&(!e.added||e.added<=day1)).length;
-  chk(live1>=6,`At least 6 upcoming events visible on Day 1 (now ${live1})`,"A near-empty list on Day 1 would make the test unfair to the idea.",true);
+  const DM=window.CE_DEMO_EVENTS||[];
+  chk(DM.every(e=>e.demo&&/^Demo: /.test(e.title)&&COLS.includes(e.col)&&CATS.includes(e.cat)&&/^\d{4}-\d{2}-\d{2}$/.test(e.date)),`${DM.length} demo events (hide with ?demo=0) are all labelled "Demo" and valid`,"Every demo event needs demo:true and a title starting with \"Demo: \".");
+  chk(!EV.some(e=>e.demo),"No demo events mixed into the real event list","Move demo events to CE_DEMO_EVENTS.");
+  const todayQ=M.qatarDate(new Date());
+  const liveNow=EV.filter(e=>M.isUpcoming(e,todayQ)).length;
+  chk(liveNow>=6,`At least 6 upcoming events visible today (now ${liveNow})`,"Add more real events so the demo list isn't near-empty.",true);
 
   // 3. network
   if(cfg.LOG_URL){
@@ -246,7 +292,7 @@ code{background:#F5F7FB;padding:1px 6px;border-radius:6px}
 
   const v=document.getElementById("verdict");
   v.className="verdict "+(fails?"stop":"go");
-  v.textContent=fails?`NOT READY: ${fails} check(s) failing. Don't start Day 1.`:"READY: all automatic checks pass. Now do the manual checks in section 4.";
+  v.textContent=fails?`NOT READY: ${fails} check(s) failing. Fix them before the demo.`:"READY: all automatic checks pass. Now do the manual checks in section 4.";
 })();
 </script>
 </body>

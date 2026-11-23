@@ -30,6 +30,11 @@ window.CE_CONFIG = {
   /* Team test codes — removed from all results. Use one for the daily log check. */
   TEST_CODES: ["T01","T02","T03","T04"],
 
+  /* Lab 09 scope (LM3): registration is DEFERRED. false hides the Register
+     button, seat counts and the "My events" tab. The code stays, so turning
+     it back on later is one switch. */
+  SHOW_REGISTRATION: false,
+
   /* Shown on the site. */
   TEAM: "SOFT4102 Team 03",
   CONTACT_NOTE: "Questions or want to leave the study? Message the team member who invited you."
@@ -48,12 +53,14 @@ window.CE_CONFIG = {
      cat     Workshop | Talk | Career | Competition | Social | Cultural | Volunteering
      org     organiser
      date    "YYYY-MM-DD"            time  "1:00 – 2:30 pm"
+     endDate optional "YYYY-MM-DD" for multi-day events (shown until this day)
      loc     building / room
      purpose one or two sentences from the announcement
      acts    list of what happens there (can be [])
-     source  REQUIRED link to the original announcement (Outlook web link,
-             Navigate360 page, club Instagram post…). Lab 08 consent rule.
-     sourceLabel  where that link goes, e.g. "Career Services email"
+     source  link to the original announcement (Navigate360 page, club
+             Instagram post…). Required unless it was only sent by email.
+     sourceLabel  where it was announced, e.g. "Navigate360 Events".
+             For email-only events say so: "CCIT email (no public link)".
      added   "YYYY-MM-DD" the day YOU added it (drives the "New" tag).
              A future date schedules it: it appears on that day.
      audience ["student","faculty","staff"]: who can attend. Leave it out = everyone.
@@ -70,30 +77,32 @@ window.CE_CONFIG = {
 
    Past events hide themselves automatically (Qatar date).
 
-   All events below are real UDST events from Navigate360 (Events page).
-   Paste each event's Navigate360 link into source before Day 1.
+   All events below are real UDST events, from Navigate360 (Events page) or
+   UDST / college emails (see the LM3 event list sheet).
+   Paste each Navigate360 link into source (Member 2).
    ===================================================================== */
 window.CE_EVENTS = [
-  {id:"2026-11-16-listening-circle",audience:["student"],capacity:20,benefits:["Confidential, judgement-free space","Meet a counsellor informally","Light refreshments"],art:"calm",title:"The Listening Circle: Sharing experiences of stress, exhaustion and finding ways to cope",col:"OTH",cat:"Workshop",org:"Student Counselling & Wellbeing",
-   date:"2026-11-16",time:"1:00 – 2:00 pm",loc:"Student Wellness Centre, Main Campus",
-   purpose:"A small, guided peer circle where students talk openly about mid-semester stress and burnout and share practical ways to cope, led by a UDST counsellor.",
-   acts:["Short welcome and ground rules (what is shared stays in the room)","Guided sharing in a small circle (listening only is fine)","Coping strategies you can use during finals","Information on booking a one-to-one counselling session"],
-   source:"",sourceLabel:"Navigate360 Events",added:"2026-11-01",orgRegistration:"Places are limited to keep the group small: RSVP on Navigate360 as well."},
-  {id:"2026-11-18-academic-award-ceremony",audience:["student","faculty","staff"],benefits:["Recognition of Dean's and President's List students","Refreshments after the ceremony"],art:"stage",title:"Academic Award Ceremony",col:"OTH",cat:"Social",org:"Student Affairs & Office of the Registrar",
-   date:"2026-11-18",time:"All day (ceremony time on your invitation)",loc:"Main Campus Auditorium",
-   purpose:"UDST celebrates students with outstanding academic results last year, with faculty, staff and families invited to attend.",
-   acts:["Welcome address from university leadership","Award presentations by college","Photos with deans and faculty","Reception"],
-   source:"",sourceLabel:"Navigate360 Events",added:"2026-11-01",orgRegistration:"Award recipients receive an invitation by UDST email; confirm attendance and guest numbers there."},
-  {id:"2026-11-24-career-fair-day1",audience:["student"],capacity:800,benefits:["Meet employers hiring interns and graduates","On-the-spot CV feedback","Free LinkedIn headshot booth","Participation certificate"],art:"booths",title:"UDST Career Fair 2026 – Day 1: Energy, Engineering & Government",col:"OTH",cat:"Career",org:"Career Services",
-   date:"2026-11-24",time:"9:00 am – 1:00 pm",loc:"Main Atrium, Main Campus",
-   purpose:"Day 1 of the two-day UDST Career Fair: meet employers from energy, engineering, industry and government who are recruiting for internships, co-op placements and graduate roles. Business dress, and bring printed copies of your CV.",
-   acts:["Employer booths (energy, oil & gas, construction, utilities, ministries)","CV review desk run by Career Services advisors","Short employer talks every hour from 10:00 am","On-the-spot screening interviews with selected employers","Free professional headshots for LinkedIn"],
-   source:"",sourceLabel:"Career Services / Navigate360",added:"2026-11-01",orgRegistration:"Register on Navigate360 and upload your CV before 20 Nov so employers can view it ahead of the fair."},
-  {id:"2026-11-25-career-fair-day2",audience:["student"],capacity:800,benefits:["Meet employers hiring interns and graduates","Mock interviews","Free LinkedIn headshot booth","Participation certificate"],art:"booths",title:"UDST Career Fair 2026 – Day 2: IT, Business & Health",col:"OTH",cat:"Career",org:"Career Services",
-   date:"2026-11-25",time:"9:00 am – 1:00 pm",loc:"Main Atrium, Main Campus",
-   purpose:"Day 2 of the UDST Career Fair: employers from IT and telecoms, banking and business, and healthcare meet students and alumni looking for internships and jobs. Business dress, and bring printed copies of your CV.",
-   acts:["Employer booths (IT & telecom, banking & finance, healthcare, logistics)","10-minute mock interviews with HR professionals","CV and LinkedIn review desk","Panel: 'What employers look for in fresh graduates' at 11:00 am","Free professional headshots for LinkedIn"],
-   source:"",sourceLabel:"Career Services / Navigate360",added:"2026-11-01",orgRegistration:"Register on Navigate360 and upload your CV before 20 Nov; mock interview slots are first come, first served on the day."},
+  /* ---- From the LM3 event list (Status = Update / New / Keep). ---- */
+  {id:"2026-11-24-career-fair-day1",audience:["student"],art:"booths",title:"UDST Career Fair 2026 – Day 1",col:"OTH",cat:"Career",org:"Career Services",
+   date:"2026-11-24",time:"10:00 am – 6:00 pm",loc:"Main Campus (hall in the Career Services email)",
+   purpose:"Network with leading organisations and discover career paths at the UDST Career Fair 2026.",
+   acts:[],
+   source:"",sourceLabel:"UDST email from Career Services (no public link)",added:"2026-11-01"},
+  {id:"2026-11-25-career-fair-day2",audience:["student"],art:"booths",title:"UDST Career Fair 2026 – Day 2",col:"OTH",cat:"Career",org:"Career Services",
+   date:"2026-11-25",time:"10:00 am – 3:00 pm",loc:"Main Campus (hall in the Career Services email)",
+   purpose:"Day 2 of the UDST Career Fair 2026: meet employers and explore career paths.",
+   acts:[],
+   source:"",sourceLabel:"UDST email from Career Services (no public link)",added:"2026-11-01"},
+  {id:"2026-11-16-ccit-itu-pp26-volunteers",audience:["student"],art:"booths",title:"Volunteer at the UDST Pavilion – ITU PP-26",col:"IT",cat:"Volunteering",org:"College of Computing & IT",
+   date:"2026-11-16",endDate:"2026-11-27",time:"Morning 9:00 am – 2:00 pm · Evening 2:00 – 9:00 pm",loc:"DECC, Hall 5",
+   purpose:"CCIT is looking for student volunteers for the UDST Pavilion at ITU PP-26. Two students per shift each day.",
+   acts:["Choose a morning or evening shift","Two student volunteers per shift, every day until 27 Nov"],
+   source:"",sourceLabel:"CCIT email (no public link)",added:"2026-11-23"},
+  {id:"2026-12-01-ccit-capstone1-volunteers",audience:["student"],art:"stage",title:"Capstone Presentation 1 – student volunteers needed",col:"IT",cat:"Volunteering",org:"College of Computing & IT",
+   date:"2026-12-01",time:"To be confirmed (see the CCIT email)",loc:"To be confirmed (see the CCIT email)",
+   purpose:"CCIT needs student volunteers to help the Capstone Presentation 1 event run smoothly. Fill in the form with the times you're free.",
+   acts:[],
+   source:"",sourceLabel:"CCIT email (no public link)",added:"2026-11-23"},
   {id:"2026-11-28-gala-dinner",audience:["student","faculty","staff"],benefits:["Dinner provided","Live entertainment","Photo booth"],art:"food",title:"Gala Dinner",col:"OTH",cat:"Social",org:"Student Affairs",
    date:"2026-11-28",time:"All day (evening programme; doors time on ticket)",loc:"Venue on Navigate360",
    purpose:"An end-of-semester formal evening for the UDST community to celebrate the term before final exams.",
@@ -124,54 +133,37 @@ window.CE_EVENTS = [
    purpose:"The monthly featured match for UDST sports teams. Come and support your university.",
    acts:["Featured UDST team match","Half-time challenges for spectators","Giveaways"],
    source:"",sourceLabel:"Navigate360 Events",added:"2026-11-01"}
-  /* ---- College events (illustrative, marked sample:true): replace with real
-     announcements from each college before Day 1, or remove. ---- */
-  ,{id:"2026-11-10-ccit-github-workshop",sample:true,audience:["student"],capacity:35,benefits:["Participation certificate","Bring your own laptop"],art:"laptop",title:"Git & GitHub for Course Projects",col:"IT",cat:"Workshop",org:"College of Computing & IT – ACM Student Chapter",
-   date:"2026-11-10",time:"12:30 – 2:00 pm",loc:"College of Computing & IT, Computer Lab",
-   purpose:"A hands-on session for students who need version control for capstone and team projects but have never set it up properly.",
-   acts:["Install and configure Git on your laptop","Branches, commits and pull requests in pairs","Fixing merge conflicts without panic"],
-   source:"",sourceLabel:"",added:"2026-11-01"}
-  ,{id:"2026-11-15-ccit-cyber-ctf",sample:true,audience:["student"],capacity:60,benefits:["Prizes for top 3 teams","Participation certificate","Food provided"],art:"hack",title:"Cybersecurity Capture the Flag (CTF)",col:"IT",cat:"Competition",org:"College of Computing & IT – Cybersecurity Club",
-   date:"2026-11-15",time:"9:00 am – 3:00 pm",loc:"College of Computing & IT, Networking Lab",
-   purpose:"Teams of 2–4 solve security puzzles in web, cryptography and forensics. Beginners are welcome; there is a warm-up track.",
-   acts:["Short briefing and rules","Beginner and advanced challenge tracks","Live scoreboard","Awards and challenge walkthrough"],
-   source:"",sourceLabel:"",added:"2026-11-01",orgRegistration:"Register your team with the Cybersecurity Club by 12 Nov."}
-  ,{id:"2026-11-11-cet-bridge-challenge",sample:true,audience:["student"],capacity:36,benefits:["Prizes for top 3 teams","Participation certificate"],art:"bridge",title:"Spaghetti Bridge Challenge",col:"ENG",cat:"Competition",org:"College of Engineering & Technology – Civil Engineering Society",
-   date:"2026-11-11",time:"2:00 – 5:00 pm",loc:"College of Engineering & Technology, Workshop Area",
-   purpose:"Teams of three design and build a bridge from spaghetti and glue, then load-test it until it breaks.",
-   acts:["Form teams of three","90-minute build","Load testing and judging"],
-   source:"",sourceLabel:"",added:"2026-11-01"}
-  ,{id:"2026-11-12-cet-science-fest",sample:true,benefits:["Hands-on demos","Prizes for best projects"],art:"robot",title:"Science & Engineering Fest",col:"ENG",cat:"Social",org:"College of Engineering & Technology",
-   date:"2026-11-12",time:"10:00 am – 2:00 pm",loc:"College of Engineering & Technology, Main Atrium",
-   purpose:"Students show their course and capstone projects, from robots and drones to renewable-energy models. Open to everyone on campus.",
-   acts:["Project exhibition by students","Robot and drone demos","Live chemistry and physics experiments","Vote for the best project"],
-   source:"",sourceLabel:"",added:"2026-11-01"}
-  ,{id:"2026-11-09-cob-cv-clinic",sample:true,audience:["student"],capacity:20,benefits:["One-to-one feedback","CV template"],art:"cv",title:"CV Clinic Before the Career Fair",col:"BUS",cat:"Career",org:"College of Business",
-   date:"2026-11-09",time:"11:00 am – 1:00 pm",loc:"College of Business, Student Success Room",
-   purpose:"Get 15 minutes of one-to-one feedback on your CV and LinkedIn profile before the 24–25 Nov Career Fair.",
-   acts:["Individual CV reviews","LinkedIn profile tips","How to talk to employers at a booth"],
-   source:"",sourceLabel:"",added:"2026-11-01",orgRegistration:"Book a 15-minute slot with the College of Business office."}
-  ,{id:"2026-11-17-cob-pitch-night",sample:true,capacity:120,benefits:["Networking","Refreshments","Cash prize for the winning team"],art:"stage",title:"Startup Pitch Night",col:"BUS",cat:"Competition",org:"College of Business – Entrepreneurship Club",
-   date:"2026-11-17",time:"5:00 – 7:30 pm",loc:"College of Business, Lecture Theatre",
-   purpose:"Student teams pitch business ideas to a panel of local founders and Qatar Development Bank mentors.",
-   acts:["Five-minute pitches","Panel feedback","Networking afterwards"],
-   source:"",sourceLabel:"",added:"2026-11-01"}
-  ,{id:"2026-11-13-chs-first-aid",sample:true,capacity:24,benefits:["Participation certificate","Hands-on practice"],art:"firstaid",title:"First Aid & CPR Basics",col:"HLTH",cat:"Workshop",org:"College of Health Sciences",
-   date:"2026-11-13",time:"10:00 am – 12:00 pm",loc:"College of Health Sciences, Simulation Lab",
-   purpose:"Learn what to do in the first minutes of a medical emergency. Open to all students and staff, no experience needed.",
-   acts:["CPR practice on manikins","Choking and bleeding response","Short scenario drills"],
-   source:"",sourceLabel:"",added:"2026-11-01"}
-  ,{id:"2026-11-14-chs-diabetes-awareness",sample:true,benefits:["Free blood sugar and BMI check","Healthy snacks"],art:"heart",title:"World Diabetes Day Health Check",col:"HLTH",cat:"Volunteering",org:"College of Health Sciences – Health Sciences Student Council",
-   date:"2026-11-14",time:"9:00 am – 1:00 pm",loc:"Main Atrium, Main Campus",
-   purpose:"Health sciences students run free screening stations and share tips on preventing diabetes, marking World Diabetes Day (14 Nov).",
-   acts:["Blood sugar, blood pressure and BMI checks","Healthy-eating stand","Volunteer as a station helper (counts for volunteer hours)"],
-   source:"",sourceLabel:"",added:"2026-11-01"}
-  ,{id:"2026-11-11-ctl-ai-roundtable",sample:true,audience:["faculty","staff"],capacity:35,benefits:["Professional development hours"],art:"lecture",title:"Teaching with AI Tools: Faculty Roundtable",col:"OTH",cat:"Talk",org:"Centre for Teaching & Learning",
-   date:"2026-11-11",time:"12:00 – 1:00 pm",loc:"Centre for Teaching & Learning, Meeting Room",
-   purpose:"Faculty share how they use AI tools in assessment design and which policies they follow.",
-   acts:["Three 10-minute case studies","Open discussion"],
-   source:"",sourceLabel:"",added:"2026-11-01"}
+  /* ---- Members 1 & 2: paste the new college / campus-wide events below this line ---- */
 ];
+
+/* =====================================================================
+   DEMO EVENTS: shown by default; open the app with ?demo=0 to hide them.
+   They are NOT real announcements:
+   each card shows a "Demo" tag and the event page says so. They exist
+   only so the college and type filters can be shown across all colleges
+   until Members 1 & 2 add real college events. Remove when not needed.
+   ===================================================================== */
+window.CE_DEMO_EVENTS = [
+  {id:"demo-eng-workshop",demo:true,art:"robot",title:"Demo: Engineering Lab Open House",col:"ENG",cat:"Workshop",org:"College of Engineering & Technology (demo)",
+   date:"2026-12-02",time:"10:00 am – 12:00 pm",loc:"College of Engineering & Technology building",
+   purpose:"Example event to show the Engineering filter. Not a real announcement.",acts:[],source:"",sourceLabel:"Demo data (not a real event)",added:"2026-11-23"},
+  {id:"demo-eng-competition",demo:true,art:"bridge",title:"Demo: Engineering Design Challenge",col:"ENG",cat:"Competition",org:"College of Engineering & Technology (demo)",
+   date:"2026-12-07",time:"1:00 – 4:00 pm",loc:"College of Engineering & Technology building",
+   purpose:"Example event to show the Engineering filter and the Competition type. Not a real announcement.",acts:[],source:"",sourceLabel:"Demo data (not a real event)",added:"2026-11-23"},
+  {id:"demo-bus-talk",demo:true,art:"lecture",title:"Demo: Business Guest Talk",col:"BUS",cat:"Talk",org:"College of Business (demo)",
+   date:"2026-12-01",time:"12:00 – 1:00 pm",loc:"College of Business building",
+   purpose:"Example event to show the Business filter and the Talk type. Not a real announcement.",acts:[],source:"",sourceLabel:"Demo data (not a real event)",added:"2026-11-23"},
+  {id:"demo-bus-career",demo:true,art:"cv",title:"Demo: CV and LinkedIn Workshop",col:"BUS",cat:"Workshop",org:"College of Business (demo)",
+   date:"2026-12-08",time:"11:00 am – 12:30 pm",loc:"College of Business building",
+   purpose:"Example event to show the Business filter and the Workshop type. Not a real announcement.",acts:[],source:"",sourceLabel:"Demo data (not a real event)",added:"2026-11-23"},
+  {id:"demo-hlth-workshop",demo:true,art:"firstaid",title:"Demo: First Aid Basics",col:"HLTH",cat:"Workshop",org:"College of Health Sciences (demo)",
+   date:"2026-12-03",time:"9:00 – 11:00 am",loc:"College of Health Sciences building",
+   purpose:"Example event to show the Health Sciences filter. Not a real announcement.",acts:[],source:"",sourceLabel:"Demo data (not a real event)",added:"2026-11-23"},
+  {id:"demo-hlth-talk",demo:true,art:"heart",title:"Demo: Healthy Habits During Finals",col:"HLTH",cat:"Talk",org:"College of Health Sciences (demo)",
+   date:"2026-12-09",time:"12:30 – 1:30 pm",loc:"College of Health Sciences building",
+   purpose:"Example event to show the Health Sciences filter and the Talk type. Not a real announcement.",acts:[],source:"",sourceLabel:"Demo data (not a real event)",added:"2026-11-23"}
+];
+
 
 
 /* ===================== APP CODE (no need to edit below) ===================== */
@@ -426,7 +418,30 @@ window.CE_EVENTS = [
   }
   const openTo = (e, role) => !e.audience || !e.audience.length || !role || e.audience.includes(role);
 
-  return { rsvpCounts, seatInfo, rankEvents, openTo, qatarDate, daysBetween, dayNumber, normalizeCode, isTestCode, parseCSV, rowDate,
+  /** Multi-day events: last day is endDate if given, otherwise date. */
+  const lastDay = e => (e.endDate && e.endDate > e.date) ? e.endDate : e.date;
+  /** Shown while its last day hasn't passed (Qatar date) and once its "added" day has come. */
+  const isUpcoming = (e, today) => !!e && !!e.date && lastDay(e) >= today && (!e.added || e.added <= today);
+  /** Happening on this day (start day ≤ today ≤ last day). */
+  const isOn = (e, today) => e.date <= today && today <= lastDay(e);
+
+  /**
+   * Search (Lab 09 acceptance criterion: "Search by a word shows only events
+   * with it in the title"). Case-insensitive, accents and punctuation ignored;
+   * with several words, every word must be in the title. Empty search = all.
+   */
+  const norm = s => String(s == null ? "" : s).toLowerCase().normalize("NFD")
+    .replace(/[̀-ͯ]/g, "").replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  function matchesQuery(text, query) {
+    const words = norm(query).split(" ").filter(Boolean);
+    if (!words.length) return true;
+    const hay = norm(text), squashed = hay.replace(/ /g, "");   // "pp26" still finds "PP-26"
+    return words.every(w => hay.includes(w) || squashed.includes(w));
+  }
+
+  const searchEvent = (e, query) => matchesQuery(e && e.title, query);   // title only
+
+  return { rsvpCounts, seatInfo, rankEvents, openTo, lastDay, isUpcoming, isOn, matchesQuery, searchEvent, qatarDate, daysBetween, dayNumber, normalizeCode, isTestCode, parseCSV, rowDate,
            analyzeVisits, decide, classifySource, tally, analyzeInterviews, SOURCES };
 });
 
@@ -654,7 +669,10 @@ const ART={
   "use strict";
   if (!document.getElementById("grid")) return;   // only on index.html
   const cfg = window.CE_CONFIG, M = window.CEMetrics, T = window.CETracker;
-  const ALL = window.CE_EVENTS || [];
+  /* Labelled demo events are shown by default (to show filters across all
+     colleges). Open with ?demo=0 to see real events only. */
+  const DEMO = new URLSearchParams(location.search).get("demo") !== "0";
+  const ALL = (window.CE_EVENTS || []).concat(DEMO ? (window.CE_DEMO_EVENTS || []) : []);
   const $ = id => document.getElementById(id);
 
   /* ---------------- constants & helpers ---------------- */
@@ -676,6 +694,10 @@ const ART={
   const parse=s=>{const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d);};
   const longDate=s=>{const d=parse(s);return `${LONG_D[d.getDay()]}, ${d.getDate()} ${LONG_M[d.getMonth()]}`;};
   const shortDate=s=>{const d=parse(s);return `${SHORT_D[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]}`;};
+  /* Multi-day events show a range, e.g. "Mon 16 – Fri 27 Nov" */
+  const multi=e=>M.lastDay(e)!==e.date;
+  const shortRange=e=>multi(e)?`${shortDate(e.date)} – ${shortDate(M.lastDay(e))}`:shortDate(e.date);
+  const longRange=e=>multi(e)?`${longDate(e.date)} to ${longDate(M.lastDay(e))}`:longDate(e.date);
   const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const safeUrl=u=>/^https?:\/\//i.test(u||"")?u:"";
   const col=k=>COLLEGES[k]||COLLEGES.OTH;
@@ -709,7 +731,9 @@ const ART={
 
   /* ---------------- state ---------------- */
   const today = M.qatarDate(new Date());
-  const EVENTS = ALL.filter(e => e && e.date >= today && (!e.added || e.added <= today));
+  const REG = cfg.SHOW_REGISTRATION !== false;   // Lab 09: false = registration deferred
+  document.body.classList.toggle("no-reg", !REG);
+  const EVENTS = ALL.filter(e => M.isUpcoming(e, today));
   const isNew = e => e.added && M.daysBetween(e.added, today) <= 2;
 
   const PKEY="ce-profile", MKEY="ce-mine", CKEY="ce-counts";
@@ -732,7 +756,7 @@ const ART={
 
   /* ---------------- seat counts from the Sheet ---------------- */
   async function loadCounts(){
-    if(!cfg.LOG_URL) return;
+    if(!REG||!cfg.LOG_URL) return;
     try{
       const r=await fetch(cfg.LOG_URL+"?counts=1",{cache:"no-store"});
       const j=await r.json();
@@ -747,7 +771,8 @@ const ART={
   }
 
   /* ---------------- tabs / routing (in-app, hash based) ---------------- */
-  const TABS=[["discover","Discover",I.home],["highlights","Highlights",I.spark],["mine","My events",I.ticket],["profile","Profile",I.user]];
+  const TABS=[["discover","Discover",I.home],["highlights","Highlights",I.spark],["mine","My events",I.ticket],["profile","Profile",I.user]]
+    .filter(([k])=>REG||k!=="mine");             // no "My events" while registration is off
   $("topTabs").innerHTML=TABS.map(([k,l])=>`<button role="tab" data-go="${k}" aria-selected="false">${l}</button>`).join("");
   $("tabbar").innerHTML=TABS.map(([k,l,ic])=>`<button data-go="${k}" aria-selected="false">${ic(22)}<span>${l}</span></button>`).join("");
   document.addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(b){e.preventDefault();go(b.dataset.go);}});
@@ -758,7 +783,7 @@ const ART={
     show(v);
   }
   function show(v){
-    if(!$("view-"+v)) v="discover";
+    if(!$("view-"+v)||!TABS.some(t=>t[0]===v)){ v="discover"; if(location.hash!=="#discover") history.replaceState(null,"","#discover"); }
     view=v; current=null;
     document.querySelectorAll(".view").forEach(x=>x.classList.add("hide"));
     $("view-"+v).classList.remove("hide");
@@ -779,8 +804,8 @@ const ART={
   /* ---------------- cards ---------------- */
   function card(e){
     const d=parse(e.date), s=going(e), matchI=profile.interests.includes(e.cat)||profile.colleges.includes(e.col);
-    const chips=(e.date===today?`<span class="chip today">Today</span>`:"")+(isNew(e)?`<span class="chip new">New</span>`:"");
-    const seatTxt = s.capacity==null ? (s.going?`${s.going} going`:"") :
+    const chips=(e.date===today&&!multi(e)?`<span class="chip today">Today</span>`:multi(e)&&M.isOn(e,today)?`<span class="chip today">On now</span>`:"")+(isNew(e)&&!e.demo?`<span class="chip new">New</span>`:"")+(e.demo?`<span class="chip demo">Demo</span>`:"");
+    const seatTxt = !REG ? "" : s.capacity==null ? (s.going?`${s.going} going`:"") :
       s.full?`<span class="seats full">Full</span>`:`<span class="seats${s.left<=Math.max(5,s.capacity*.15)?" low":""}">${s.left} of ${s.capacity} seats left</span>`;
     return `<li><button class="card" data-id="${esc(e.id)}" style="${colVars(e.col)}">
       <span class="cwrap" style="display:block">${media(e)}
@@ -790,21 +815,21 @@ const ART={
       </span>
       <span class="cbody">
         <h3>${esc(e.title)}</h3>
-        <span class="line">${I.clock(16)}${shortDate(e.date)}, ${esc(e.time)}</span>
+        <span class="line">${I.clock(16)}${shortRange(e)}, ${esc(e.time)}</span>
         <span class="line">${I.pin(16)}${esc(e.loc)}</span>
         ${matchI&&state.sort==="foryou"?`<span class="match">${I.star(14)}Matches your interests</span>`:""}
-        <span class="cfoot"><span>${mine.has(e.id)?`<span class="going-tag">You're going</span>`:seatTxt||esc(e.org)}</span><span class="type">${esc(e.cat)}</span></span>
+        <span class="cfoot"><span>${REG&&mine.has(e.id)?`<span class="going-tag">You're going</span>`:seatTxt||esc(e.org)}</span><span class="type">${esc(e.cat)}</span></span>
       </span></button></li>`;
   }
   document.addEventListener("click",e=>{const b=e.target.closest(".card");if(b)openEvent(b.dataset.id);});
 
   /* ---------------- Discover ---------------- */
   function visible(){ return EVENTS.filter(e => state.allAud || M.openTo(e, profile.role)); }
+  /* Search looks at the event title only (Lab 09 acceptance criterion). */
   function matches(e,skip){
-    const q=state.q.trim().toLowerCase();
     return (skip==="cat"||state.cat==="All"||e.cat===state.cat)&&
            (skip==="col"||state.col==="All"||e.col===state.col)&&
-           (!q||[e.title,e.org,e.loc,e.purpose,e.cat,col(e.col).name,...(e.acts||[]),...(e.benefits||[])].join(" ").toLowerCase().includes(q));
+           M.searchEvent(e,state.q);
   }
   function renderFilters(base){
     const cc=k=>base.filter(e=>matches(e,"col")&&(k==="All"||e.col===k)).length;
@@ -845,7 +870,7 @@ const ART={
   /* ---------------- Highlights (collage section) ---------------- */
   function renderHighlights(){
     $("legend").innerHTML=Object.values(COLLEGES).map(c=>`<span><i style="background:var(--${c.v})"></i>${c.name}</span>`).join("");
-    const week=M.rankEvents(visible().filter(e=>M.daysBetween(today,e.date)<=6),profile,"soonest");
+    const week=M.rankEvents(visible().filter(e=>M.daysBetween(today,e.date)<=6),profile,"soonest");   // ongoing multi-day events count too
     const pick=(week.length>=3?week:M.rankEvents(visible(),profile,"soonest")).slice(0,3);
     $("collage").innerHTML=pick.map((e,i)=>media(e,"m"+(i+1))).join("");
     $("weekGrid").innerHTML=week.length?week.map(card).join(""):`<li class="empty">Nothing in the next 7 days. Check Discover for later events.</li>`;
@@ -853,7 +878,7 @@ const ART={
 
   /* ---------------- My events ---------------- */
   function renderMine(){
-    const list=M.rankEvents(ALL.filter(e=>mine.has(e.id)&&e.date>=today),profile,"soonest");
+    const list=M.rankEvents(ALL.filter(e=>mine.has(e.id)&&M.lastDay(e)>=today),profile,"soonest");
     $("mineGrid").innerHTML=list.length?list.map(card).join(""):`<li class="empty">You haven't registered for anything yet. Find an event in <button class="linkbtn" data-go="discover">Discover</button> and tap “Register”.</li>`;
   }
 
@@ -890,7 +915,7 @@ const ART={
   }
   function renderDetail(){
     const e=current; if(!e) return;
-    const c=col(e.col), src=safeUrl(e.source), s=going(e), me=mine.has(e.id), past=e.date<today;
+    const c=col(e.col), src=safeUrl(e.source), s=going(e), me=mine.has(e.id), past=M.lastDay(e)<today;
     const pct=s.capacity?Math.min(100,Math.round(s.going/s.capacity*100)):0;
     const seatBlock = s.capacity!=null
       ? `<div class="seatline"><span>${s.full?"Full":`${s.left} seats left`}</span><span>${s.going} of ${s.capacity} registered</span></div><div class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="${s.capacity}" aria-valuenow="${s.going}" aria-label="Seats taken"><i style="width:${pct}%"></i></div>`
@@ -903,7 +928,7 @@ const ART={
       <section class="ehero" style="${colVars(e.col)}"><div class="in pad">
         <div class="crumb"><button id="back">${ico(`<path d="M15 18l-6-6 6-6"/>`,18)}Back</button></div>
         <div>
-          <span class="pill"><i></i>${c.name}</span><span class="pill" style="color:var(--ink)">${esc(e.cat)}</span>
+          <span class="pill"><i></i>${c.name}</span><span class="pill" style="color:var(--ink)">${esc(e.cat)}</span>${e.demo?`<span class="pill" style="color:#B3261E">Demo event: not real</span>`:""}
           <h1>${esc(e.title)}</h1>
           <p>Organised by ${esc(e.org)}</p>
         </div>
@@ -912,7 +937,7 @@ const ART={
       <div class="elayout pad">
         <div>
           <div class="facts">
-            <div class="fact"><span class="ic">${I.cal(20)}</span><div><b>Date</b><span>${longDate(e.date)}</span></div></div>
+            <div class="fact"><span class="ic">${I.cal(20)}</span><div><b>Date</b><span>${longRange(e)}</span></div></div>
             <div class="fact"><span class="ic">${I.clock(20)}</span><div><b>Time</b><span>${esc(e.time)}</span></div></div>
             <div class="fact"><span class="ic">${I.pin(20)}</span><div><b>Location</b><span>${esc(e.loc)}</span></div></div>
             <div class="fact"><span class="ic">${I.people(20)}</span><div><b>Open to</b><span>${esc(audLabel(e.audience))}</span></div></div>
@@ -921,14 +946,21 @@ const ART={
           ${(e.acts||[]).length?`<div class="sec"><h2>What you'll do</h2><ul>${e.acts.map(a=>`<li>${esc(a)}</li>`).join("")}</ul></div>`:""}
           ${(e.benefits||[]).length?`<div class="sec"><h2>What you get</h2><div class="tags">${e.benefits.map(b=>`<span class="tag">${esc(b)}</span>`).join("")}</div></div>`:""}
         </div>
-        <aside class="regbox" aria-label="Registration">
+        ${REG?`<aside class="regbox" aria-label="Registration">
           <h2>${I.seat(22)} Seats</h2>
           ${seatBlock}
           ${btn}
           ${e.orgRegistration&&!past?`<div class="orgnote"><b>The organiser also takes registrations.</b> ${esc(e.orgRegistration)}</div>`:""}
           ${src?`<a class="official" id="srcLink" href="${esc(src)}" target="_blank" rel="noopener noreferrer">${I.ext(16)}Official announcement${e.sourceLabel?` (${esc(e.sourceLabel)})`:""}</a>`:""}
           <small>Seat counts include registrations made on Campus Events${e.registeredElsewhere?` plus ${e.registeredElsewhere} reported by the organiser${e.registeredAsOf?` on ${shortDate(e.registeredAsOf)}`:""}`:""}. Campus Events is a student project, not an official UDST service.</small>
-        </aside>
+        </aside>`:`<aside class="regbox" aria-label="How to go">
+          <h2>${I.ext(22)} How to go</h2>
+          ${past?`<p class="subtle">This event has ended.</p>`:""}
+          ${e.orgRegistration&&!past?`<div class="orgnote">${esc(e.orgRegistration)}</div>`:""}
+          ${src?`<a class="primary big srcgo" id="srcLink" href="${esc(src)}" target="_blank" rel="noopener noreferrer">${I.ext(16)} Open the official announcement</a>`
+               :`<div class="orgnote"><b>Announced in:</b> ${esc(e.sourceLabel||"UDST channels")}. Check there for any changes.</div>`}
+          <small>Campus Events is a student project, not an official UDST service.</small>
+        </aside>`}
       </div>`;
     $("back").onclick=()=>history.length>1?history.back():go("discover");
     const r=$("rsvp"); if(r) r.onclick=()=>toggleRsvp(e);

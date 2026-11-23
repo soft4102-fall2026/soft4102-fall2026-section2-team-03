@@ -268,3 +268,7 @@ dialog{max-height:calc(100dvh - 24px);overflow:auto}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .filterbar .allaud{margin-left:auto;align-items:center}
 @media (max-width:820px){.filterbar{padding-top:8px}.fsel{flex:1 1 140px}.fsel select{width:100%}.filterbar .allaud{margin-left:0;flex-basis:100%}}
+/* ---------- Lab 09: registration deferred (SHOW_REGISTRATION: false) ---------- */
+body.no-reg .reg-only{display:none}
+a.primary.srcgo{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;text-align:center}
+.chip.demo{background:#B3261E;color:#fff}
