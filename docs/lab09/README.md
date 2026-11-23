@@ -24,8 +24,8 @@ and opens one to see the details. They can decide to go without checking
 Instagram or Outlook.
 
 ## User stories
-1. See upcoming events soonest first or "For you".
-2. Search and filter events.
-3. Open an event page with all key details.
+1. See upcoming events soonest first or "For you" (#10)
+2. Search and filter events (#11)
+3. Open an event page with all key details (#12)
 
-Tracked in [GitHub Issues](https://github.com/soft4102-fall2026/soft4102-fall2026-section2-team-03/issues).
+Deferred features: #13. All tracked in [GitHub Issues](https://github.com/soft4102-fall2026/soft4102-fall2026-section2-team-03/issues).
