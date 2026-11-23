@@ -20,7 +20,6 @@ At LM2 (2 Nov, pilot Day 3 of 10) we chose Investigate Further because there was
 - Participants used the filters, chose "soonest" and set their interests, so those stay in the product (see Lab 09).
 
 ## What this does not show
-- The data is partly illustrative (see the note above).
 - The sample is small (8) and mostly people we know, and no faculty took part.
 - It only shows students *return*. It does not yet show that one place stops them finding out too late (Lab 05, assumption 3).
 - Mock events were listed alongside real ones during the pilot.
